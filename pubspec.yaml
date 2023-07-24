@@ -1,0 +1,23 @@
+name: dieta_mobile
+version: 1.0.0+1
+publish_to: none
+description: A new Flutter project.
+environment: 
+  sdk: '>=2.19.6 <3.0.0'
+
+dependencies: 
+  cupertino_icons: ^1.0.2
+  
+  flutter: 
+    sdk: flutter
+  get_storage: ^2.1.1
+  get: 4.6.5
+
+dev_dependencies: 
+  flutter_lints: 2.0.2
+  flutter_test: 
+    sdk: flutter
+
+flutter: 
+  uses-material-design: true
+
