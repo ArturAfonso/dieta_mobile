@@ -1,8 +1,25 @@
+import 'package:dieta_mobile/app/data/models/alimento_model.dart';
+import 'package:dieta_mobile/app/data/models/refeicao_model.dart';
 import 'package:get/get.dart';
 
 class HomeController extends GetxController {
   RxInt currentIndex = 0.obs;
   RxBool bottonNavIsloading = false.obs;
+
+  RefeicaoModel refeicao = RefeicaoModel(alimentos: [
+    AlimentoModel(descricao: "pao", calorias: 1, carboidratos: 2, gorduras: 3, proteinas: 4),
+    AlimentoModel(descricao: "maça", calorias: 1, carboidratos: 2, gorduras: 3, proteinas: 4),
+    AlimentoModel(descricao: "queijo", calorias: 1, carboidratos: 2, gorduras: 3, proteinas: 4)
+  ]);
+  @override
+  void onInit() {
+    teste();
+    super.onInit();
+  }
+
+  void teste() {
+    print("Proteinas totais: ${refeicao.totalProteinas()}");
+  }
 
   void changePage({
     required int currentPage,
