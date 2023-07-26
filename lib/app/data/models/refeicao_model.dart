@@ -72,7 +72,7 @@ class RefeicaoModel {
     return data;
   }
 
-  double totalProteinas() {
+  double totalProteinas({bool? multiplica}) {
     double result = 0.0;
     if (alimentos != null) {
       for (var element in alimentos!) {
@@ -81,6 +81,50 @@ class RefeicaoModel {
         }
       }
     }
+
+    if (multiplica != null && multiplica == true) {
+      return result * 4;
+    } else {
+      return result;
+    }
+  }
+
+  double totalCarboidratos({bool? multiplica}) {
+    double result = 0.0;
+    if (alimentos != null) {
+      for (var element in alimentos!) {
+        if (element!.carboidratos != null) {
+          result = result + element.carboidratos!;
+        }
+      }
+    }
+    if (multiplica != null && multiplica == true) {
+      return result * 4;
+    } else {
+      return result;
+    }
+  }
+
+  double totalGorduras({bool? multiplica}) {
+    double result = 0.0;
+    if (alimentos != null) {
+      for (var element in alimentos!) {
+        if (element!.gorduras != null) {
+          result = result + element.gorduras!;
+        }
+      }
+    }
+
+    if (multiplica != null && multiplica == true) {
+      return result * 9;
+    } else {
+      return result;
+    }
+  }
+
+  double totalCalorias() {
+    double result = 0.0;
+    result = totalProteinas(multiplica: true) + totalCarboidratos(multiplica: true) + totalGorduras(multiplica: true);
 
     return result;
   }
