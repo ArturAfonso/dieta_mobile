@@ -1,4 +1,8 @@
+import 'package:dieta_mobile/app/modules/alimentos/views/alimentos_view.dart';
 import 'package:dieta_mobile/app/modules/home/components/bottom_bar.dart';
+import 'package:dieta_mobile/app/modules/informacoes/views/informacoes_view.dart';
+import 'package:dieta_mobile/app/modules/metas/views/metas_view.dart';
+import 'package:dieta_mobile/app/modules/refeicoes/views/refeicoes_view.dart';
 import 'package:flutter/material.dart';
 
 import 'package:get/get.dart';
@@ -10,17 +14,9 @@ class HomeView extends GetView<HomeController> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        backgroundColor: Theme.of(context).primaryColor,
-        title: const Text('HomeView'),
-        centerTitle: true,
-      ),
-      body: const Center(
-        child: Text(
-          'HomeView is working',
-          style: TextStyle(fontSize: 20),
-        ),
-      ),
+      body: PageView(
+          controller: controller.pageController,
+          children: const [RefeicoesView(), AlimentosView(), InformacoesView(), MetasView()]),
       bottomNavigationBar: BottomBarHome(controller: controller),
     );
   }

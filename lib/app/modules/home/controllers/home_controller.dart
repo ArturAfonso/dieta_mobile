@@ -1,11 +1,13 @@
 import 'package:dieta_mobile/app/data/models/alimento_model.dart';
 import 'package:dieta_mobile/app/data/models/refeicao_model.dart';
 import 'package:dieta_mobile/app/data/shared/dieta_utils.dart';
+import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 class HomeController extends GetxController {
   RxInt currentIndex = 0.obs;
   RxBool bottonNavIsloading = false.obs;
+  PageController pageController = PageController(initialPage: 0);
 
   RefeicaoModel refeicao = RefeicaoModel(alimentos: [
     AlimentoModel(descricao: "pao", calorias: 1, carboidratos: 2, gorduras: 3, proteinas: 4),
@@ -37,37 +39,30 @@ class HomeController extends GetxController {
         alcancado: DietaUtils.proteinaGeral([refeicao, refeicao, refeicao])));
   }
 
-  void changePage({
-    required int currentPage,
-    /* required int page */
-  }) {
+  void changePage({required int page}) {
     bottonNavIsloading.value = true;
     Future.delayed(const Duration(milliseconds: 100), (() {
       bottonNavIsloading.value = false;
     }));
 
-    currentIndex.value = currentPage;
-    //pageController.jumpToPage(currentPage);
-    print(currentIndex.value);
+    currentIndex.value = page;
+    pageController.jumpToPage(page);
+    /*    print(currentIndex.value);
     if (currentIndex.value == 0) {
-      print("go to vendas page");
-      //Get.toNamed(Routes.VENDAS_PAGE);
+      print("go to refeiçoes page");
+      Get.toNamed(Routes.REFEICOES);
     }
     if (currentIndex.value == 1) {
-      // Get.toNamed(Routes.PRODUCTS);
-      print("go to products page");
+      Get.toNamed(Routes.ALIMENTOS);
+      print("go to alimentos page");
     }
     if (currentIndex.value == 2) {
-      //Get.toNamed(Routes.PRODUCTS);
-      print("go to relatorios page");
+      Get.toNamed(Routes.INFORMACOES);
+      print("go to informacoes page");
     }
     if (currentIndex.value == 3) {
-      //Get.toNamed(Routes.PRODUCTS);
-      print("go to compras page");
-    }
-    if (currentIndex.value == 4) {
-      //Get.toNamed(Routes.PRODUCTS);
-      print("go to financeiro page");
-    }
+      Get.toNamed(Routes.METAS);
+      print("go to metas page");
+    } */
   }
 }

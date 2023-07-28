@@ -1,5 +1,6 @@
 import 'package:dieta_mobile/app/modules/home/controllers/home_controller.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_vector_icons/flutter_vector_icons.dart';
 
 import 'package:get/get.dart';
 
@@ -15,10 +16,10 @@ class BottomBarHome extends StatelessWidget {
   Widget build(BuildContext context) {
     return Obx((() => BottomNavigationBar(
           type: BottomNavigationBarType.fixed,
-          backgroundColor: Colors.teal, //AppSettings.of(context)!.settings.textColorPrimaryLight,
+          backgroundColor: Theme.of(context).primaryColor, //AppSettings.of(context)!.settings.textColorPrimaryLight,
           //fixedColor: G4settings().textColorQuaternaryLight,
 
-          selectedItemColor: Colors.white,
+          selectedItemColor: Colors.yellowAccent,
           selectedIconTheme: const IconThemeData(size: 32),
           unselectedIconTheme: const IconThemeData(size: 32),
           unselectedItemColor: Colors.white,
@@ -28,11 +29,11 @@ class BottomBarHome extends StatelessWidget {
               color: Colors.green /* AppSettings.of(context)!.settings.textColorTertiaryLight */, fontSize: 12),
           currentIndex: controller.currentIndex.value,
           onTap: (x) {
-            controller.changePage(currentPage: x);
+            controller.changePage(page: x);
           },
           items: [
             BottomNavigationBarItem(
-                label: "Inicio",
+                label: "Refeições",
                 icon: Padding(
                   padding: const EdgeInsets.symmetric(vertical: 3),
                   child: Container(
@@ -42,12 +43,12 @@ class BottomBarHome extends StatelessWidget {
                           shape: BoxShape.rectangle,
                           borderRadius: BorderRadius.circular(30.0),
                           color: (controller.currentIndex.value == 0 && controller.bottonNavIsloading.value == true)
-                              ? Colors.orange //AppSettings.of(context)!.settings.colorPrimaryLight
+                              ? Colors.yellow //AppSettings.of(context)!.settings.colorPrimaryLight
                               : Colors.transparent),
-                      child: const Icon(Icons.attach_money)),
+                      child: const Icon(Ionicons.restaurant)),
                 )),
             BottomNavigationBarItem(
-                label: "Produtos",
+                label: "Alimentos",
                 icon: Padding(
                   padding: const EdgeInsets.symmetric(vertical: 3),
                   child: Container(
@@ -57,12 +58,12 @@ class BottomBarHome extends StatelessWidget {
                           shape: BoxShape.rectangle,
                           borderRadius: BorderRadius.circular(30.0),
                           color: (controller.currentIndex.value == 1 && controller.bottonNavIsloading.value == true)
-                              ? Colors.amber //AppSettings.of(context)!.settings.colorPrimaryLight
+                              ? Colors.yellow //AppSettings.of(context)!.settings.colorPrimaryLight
                               : Colors.transparent),
-                      child: const Icon(Icons.inventory_2)),
+                      child: const Icon(Icons.menu_book_outlined)),
                 )),
             BottomNavigationBarItem(
-                label: "Relatórios",
+                label: "Informações",
                 icon: Padding(
                   padding: const EdgeInsets.symmetric(vertical: 3),
                   child: Container(
@@ -72,12 +73,12 @@ class BottomBarHome extends StatelessWidget {
                           shape: BoxShape.rectangle,
                           borderRadius: BorderRadius.circular(30.0),
                           color: (controller.currentIndex.value == 2 && controller.bottonNavIsloading.value == true)
-                              ? Colors.blueGrey //AppSettings.of(context)!.settings.colorPrimaryLight
+                              ? Colors.yellow //AppSettings.of(context)!.settings.colorPrimaryLight
                               : Colors.transparent),
-                      child: const Icon(Icons.assessment_outlined)),
+                      child: const Icon(Ionicons.fitness_sharp)),
                 )),
             BottomNavigationBarItem(
-                label: "Compras",
+                label: "Metas",
                 icon: Padding(
                   padding: const EdgeInsets.symmetric(vertical: 3),
                   child: Container(
@@ -87,11 +88,11 @@ class BottomBarHome extends StatelessWidget {
                           shape: BoxShape.rectangle,
                           borderRadius: BorderRadius.circular(30.0),
                           color: (controller.currentIndex.value == 3 && controller.bottonNavIsloading.value == true)
-                              ? Colors.deepPurple //AppSettings.of(context)!.settings.colorPrimaryLight
+                              ? Colors.yellow //AppSettings.of(context)!.settings.colorPrimaryLight
                               : Colors.transparent),
-                      child: const Icon(Icons.fire_truck_sharp)),
+                      child: const Icon(Icons.calculate)),
                 )),
-            BottomNavigationBarItem(
+            /*    BottomNavigationBarItem(
                 label: "Financeiro",
                 icon: Padding(
                   padding: const EdgeInsets.symmetric(vertical: 3),
@@ -102,10 +103,10 @@ class BottomBarHome extends StatelessWidget {
                           shape: BoxShape.rectangle,
                           borderRadius: BorderRadius.circular(30.0),
                           color: (controller.currentIndex.value == 4 && controller.bottonNavIsloading.value == true)
-                              ? Colors.teal //AppSettings.of(context)!.settings.colorPrimaryLight
+                              ? Colors.yellow //AppSettings.of(context)!.settings.colorPrimaryLight
                               : Colors.transparent),
                       child: const Icon(Icons.auto_graph_outlined)),
-                )),
+                )), */
           ],
         )));
   }
