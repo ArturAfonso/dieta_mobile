@@ -1,23 +1,16 @@
+import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 class InformacoesController extends GetxController {
-  //TODO: Implement InformacoesController
+  final ScrollController scrollNovoAitController = ScrollController();
+
+  final TextEditingController controllerPeso = TextEditingController();
+  final TextEditingController controllerAltura = TextEditingController();
+  final TextEditingController controllerIdade = TextEditingController();
+  final TextEditingController controllerFA = TextEditingController();
+  final TextEditingController controllerGDA = TextEditingController();
 
   final count = 0.obs;
-  @override
-  void onInit() {
-    super.onInit();
-  }
-
-  @override
-  void onReady() {
-    super.onReady();
-  }
-
-  @override
-  void onClose() {
-    super.onClose();
-  }
 
   void increment() => count.value++;
 }

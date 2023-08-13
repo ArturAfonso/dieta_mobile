@@ -16,6 +16,7 @@ class HomeView extends GetView<HomeController> {
     return Scaffold(
       body: PageView(
           controller: controller.pageController,
+          physics: const NeverScrollableScrollPhysics(),
           children: const [RefeicoesView(), AlimentosView(), InformacoesView(), MetasView()]),
       bottomNavigationBar: BottomBarHome(controller: controller),
     );
