@@ -1,3 +1,5 @@
+// ignore_for_file: avoid_print
+
 import 'package:dieta_mobile/app/data/models/refeicao_model.dart';
 
 class DietaUtils {

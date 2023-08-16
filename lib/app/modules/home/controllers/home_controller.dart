@@ -1,10 +1,14 @@
+// ignore_for_file: avoid_print
+
 import 'package:dieta_mobile/app/data/models/alimento_model.dart';
 import 'package:dieta_mobile/app/data/models/refeicao_model.dart';
 import 'package:dieta_mobile/app/data/shared/dieta_utils.dart';
+import 'package:dieta_mobile/app/modules/informacoes/controllers/informacoes_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 class HomeController extends GetxController {
+  InformacoesController cInfo = InformacoesController();
   RxInt currentIndex = 0.obs;
   RxBool bottonNavIsloading = false.obs;
   PageController pageController = PageController(initialPage: 0);
@@ -14,6 +18,7 @@ class HomeController extends GetxController {
     AlimentoModel(descricao: "maça", calorias: 1, carboidratos: 2, gorduras: 3, proteinas: 4),
     AlimentoModel(descricao: "queijo", calorias: 1, carboidratos: 2, gorduras: 3, proteinas: 4)
   ]);
+
   @override
   void onInit() {
     teste();
@@ -39,30 +44,26 @@ class HomeController extends GetxController {
         alcancado: DietaUtils.proteinaGeral([refeicao, refeicao, refeicao])));
   }
 
-  void changePage({required int page}) {
-    bottonNavIsloading.value = true;
-    Future.delayed(const Duration(milliseconds: 100), (() {
-      bottonNavIsloading.value = false;
-    }));
-
-    currentIndex.value = page;
-    pageController.jumpToPage(page);
-    /*    print(currentIndex.value);
-    if (currentIndex.value == 0) {
-      print("go to refeiçoes page");
-      Get.toNamed(Routes.REFEICOES);
-    }
-    if (currentIndex.value == 1) {
-      Get.toNamed(Routes.ALIMENTOS);
-      print("go to alimentos page");
-    }
+  void changePage({required int page}) async {
     if (currentIndex.value == 2) {
-      Get.toNamed(Routes.INFORMACOES);
-      print("go to informacoes page");
+      var retorno = await cInfo.saveUserInfo();
+      if (retorno == true) {
+        bottonNavIsloading.value = true;
+        Future.delayed(const Duration(milliseconds: 100), (() {
+          bottonNavIsloading.value = false;
+        }));
+
+        currentIndex.value = page;
+        pageController.jumpToPage(page);
+      }
+    } else {
+      bottonNavIsloading.value = true;
+      Future.delayed(const Duration(milliseconds: 100), (() {
+        bottonNavIsloading.value = false;
+      }));
+
+      currentIndex.value = page;
+      pageController.jumpToPage(page);
     }
-    if (currentIndex.value == 3) {
-      Get.toNamed(Routes.METAS);
-      print("go to metas page");
-    } */
   }
 }

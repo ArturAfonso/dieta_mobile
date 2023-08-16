@@ -99,24 +99,10 @@ class _CustomTextFormField extends State<CustomTextFormFieldAit> {
         final textFieldPosition = _focus.rect.top;
         // print(textFieldPosition);
         if (textFieldPosition > (sizeTela - keyboardHeight)) {
-          cInfoController.scrollNovoAitController
-              .jumpTo(cInfoController.scrollNovoAitController.position.maxScrollExtent);
+          cInfoController.scrollinformacoesAitController
+              .jumpTo(cInfoController.scrollinformacoesAitController.position.maxScrollExtent);
         }
-      } /* else if (widget.controller is ConsultaVeiculoController) {
-        ConsultaVeiculoController cConsultaVeic = Get.find();
-        final keyboardHeight = MediaQuery.of(context).viewInsets.bottom;
-        final sizeTela = Get.size.height;
-        // print("keyboardHeight: $keyboardHeight");
-        //print(sizeTela - keyboardHeight);
-
-        final textFieldPosition = _focus.rect.top;
-        //print(textFieldPosition);
-
-        if (textFieldPosition > (sizeTela - keyboardHeight)) {
-          cConsultaVeic.scrollConsultaVeiculoController
-              .jumpTo(cConsultaVeic.scrollConsultaVeiculoController.position.maxScrollExtent);
-        }
-      } */
+      }
     } else {
       setState(() {
         widget.labelFinal = widget.label;
@@ -140,7 +126,7 @@ class _CustomTextFormField extends State<CustomTextFormFieldAit> {
             }
           },
           onEditingComplete: widget.onEditingComplete ?? () {},
-          cursorColor: Colors.blue /* AppConfig.of(context)!.configs.colorPrimaryLight */,
+          cursorColor: Theme.of(context).primaryColor /* AppConfig.of(context)!.configs.colorPrimaryLight */,
           maxLines: widget.maxLines ?? 1,
           focusNode: _focus,
           validator: widget.validator,
