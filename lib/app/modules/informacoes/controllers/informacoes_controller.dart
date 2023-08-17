@@ -1,9 +1,11 @@
+import 'package:dieta_mobile/app/modules/home/controllers/home_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:group_button/group_button.dart';
 
 class InformacoesController extends GetxController {
-  final infoUserFormKey = GlobalKey<FormState>();
+  HomeController cHome = Get.find();
+/*   final infoUserFormKey = GlobalKey<FormState>(); */
   final ScrollController scrollinformacoesAitController = ScrollController();
   GroupButtonController sexControllerButton = GroupButtonController();
 
@@ -12,6 +14,7 @@ class InformacoesController extends GetxController {
   final TextEditingController controllerIdade = TextEditingController();
   final TextEditingController controllerFA = TextEditingController();
   final TextEditingController controllerGDA = TextEditingController();
+  String generoUser = "M";
   //F.A
   RxString selectedFA = "Sedentário".obs;
 
@@ -20,17 +23,5 @@ class InformacoesController extends GetxController {
     //TODO pegar o sexo das configuraçoes de usuario
     sexControllerButton.selectIndex(0);
     super.onInit();
-  }
-
-  Future<bool> saveUserInfo() async {
-    bool canChangePage = false;
-    final FormState? formState = infoUserFormKey.currentState;
-    if (formState != null && formState.validate()) {
-      canChangePage = true;
-      return canChangePage;
-    } else {
-      infoUserFormKey.currentState!.validate();
-      return canChangePage;
-    }
   }
 }

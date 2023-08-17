@@ -17,7 +17,7 @@ class InformacoesView extends GetView<InformacoesController> {
   @override
   Widget build(BuildContext context) {
     return Form(
-      key: controller.infoUserFormKey,
+      key: controller.cHome.formKeys[controller.cHome.currentIndex.value],
       child: Scaffold(
         appBar: AppBar(
           backgroundColor: Theme.of(context).primaryColor,
@@ -39,7 +39,8 @@ class InformacoesView extends GetView<InformacoesController> {
                     controller: controller.sexControllerButton,
                     onSelected: (String g, int number, bool bo) {
                       print(g);
-                      controller.infoUserFormKey.currentState!.validate();
+                      controller.generoUser = g;
+                      //controller.cHome.formKeys[controller.cHome.currentIndex.value].currentState!.validate();
                     },
                     options: GroupButtonOptions(
                       borderRadius: BorderRadius.circular(16),

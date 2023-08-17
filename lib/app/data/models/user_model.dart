@@ -14,7 +14,7 @@ class UserModel {
 */
 
   String? genero;
-  int? gda;
+  double? gda;
   double? peso;
   String? altura;
   String? idade;
@@ -30,7 +30,7 @@ class UserModel {
   });
   UserModel.fromJson(Map<String, dynamic> json) {
     genero = json['genero']?.toString();
-    gda = json['gda']?.toInt();
+    gda = double.tryParse(json['gda'].toString());
     peso = json['peso']?.toDouble();
     altura = json['altura']?.toString();
     idade = json['idade']?.toString();

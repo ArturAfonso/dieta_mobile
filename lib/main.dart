@@ -1,5 +1,7 @@
 import 'package:dieta_mobile/app/data/theme/themes.dart';
 import 'package:dieta_mobile/app/modules/auth/controllers/auth_controller.dart';
+import 'package:dieta_mobile/app/modules/informacoes/controllers/saveinfo_controller.dart';
+import 'package:dieta_mobile/app/modules/metas/controllers/metas_controller.dart';
 import 'package:flutter/material.dart';
 
 import 'package:get/get.dart';
@@ -12,14 +14,16 @@ import 'app/routes/app_pages.dart';
 void main() async {
   await GetStorage.init('storage');
   Get.put(AuthController());
-  // AuthController cAuth = Get.find();
+  AuthController cAuth = Get.find();
   Get.lazyPut(() => RefeicoesController());
   Get.lazyPut(() => InformacoesController());
+  Get.lazyPut(() => SaveInfoUserController());
+  Get.lazyPut(() => MetasController());
   // calcularGCD(intensidade: 'Sedentário', altura: 173, idade: 30, peso: 100, sexo: "H");
   runApp(
     GetMaterialApp(
       title: "Application",
-      initialRoute: AppPages.INITIAL,
+      initialRoute: cAuth.loadUserLogado(),
       getPages: AppPages.routes,
       theme: lightTheme,
       //darkTheme: darkTheme,

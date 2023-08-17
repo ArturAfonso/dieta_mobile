@@ -11,10 +11,22 @@ import '../controllers/home_controller.dart';
 
 class HomeView extends GetView<HomeController> {
   const HomeView({Key? key}) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
+    if (controller.cAuth.preencherUser == true) {
+      Future.delayed(const Duration(seconds: 1), () {
+        if (controller.pageController.hasClients) {
+          controller.changePage(page: 2);
+        }
+      });
+    }
     return Scaffold(
       body: PageView(
+          key: controller.formKeys[controller.currentIndex.value],
+          onPageChanged: (s) {
+            print(s);
+          },
           controller: controller.pageController,
           physics: const NeverScrollableScrollPhysics(),
           children: const [RefeicoesView(), AlimentosView(), InformacoesView(), MetasView()]),

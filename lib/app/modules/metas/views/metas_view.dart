@@ -14,10 +14,15 @@ class MetasView extends GetView<MetasController> {
         title: const Text('Metas'),
         centerTitle: true,
       ),
-      body: const Center(
-        child: Text(
-          'MetasView is working',
-          style: TextStyle(fontSize: 20),
+      body: Center(
+        child: ElevatedButton(
+          onPressed: () {
+            controller.storage.erase();
+          },
+          child: const Text(
+            'MetasView is working',
+            style: TextStyle(fontSize: 20),
+          ),
         ),
       ),
     );

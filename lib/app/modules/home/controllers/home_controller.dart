@@ -3,12 +3,17 @@
 import 'package:dieta_mobile/app/data/models/alimento_model.dart';
 import 'package:dieta_mobile/app/data/models/refeicao_model.dart';
 import 'package:dieta_mobile/app/data/shared/dieta_utils.dart';
-import 'package:dieta_mobile/app/modules/informacoes/controllers/informacoes_controller.dart';
+import 'package:dieta_mobile/app/modules/auth/controllers/auth_controller.dart';
+import 'package:dieta_mobile/app/modules/informacoes/controllers/saveinfo_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:get_storage/get_storage.dart';
 
 class HomeController extends GetxController {
-  InformacoesController cInfo = InformacoesController();
+  AuthController cAuth = Get.find();
+
+  SaveInfoUserController cSaveInfo = Get.find();
+  GetStorage storage = GetStorage('storage');
   RxInt currentIndex = 0.obs;
   RxBool bottonNavIsloading = false.obs;
   PageController pageController = PageController(initialPage: 0);
@@ -19,6 +24,7 @@ class HomeController extends GetxController {
     AlimentoModel(descricao: "queijo", calorias: 1, carboidratos: 2, gorduras: 3, proteinas: 4)
   ]);
 
+  List<GlobalKey<FormState>> formKeys = [GlobalKey<FormState>(), GlobalKey<FormState>(), GlobalKey<FormState>()];
   @override
   void onInit() {
     teste();
@@ -45,8 +51,9 @@ class HomeController extends GetxController {
   }
 
   void changePage({required int page}) async {
+    print(currentIndex.value);
     if (currentIndex.value == 2) {
-      var retorno = await cInfo.saveUserInfo();
+      var retorno = await cSaveInfo.saveUserInfo(form: formKeys[currentIndex.value]);
       if (retorno == true) {
         bottonNavIsloading.value = true;
         Future.delayed(const Duration(milliseconds: 100), (() {
