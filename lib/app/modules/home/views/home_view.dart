@@ -20,6 +20,8 @@ class HomeView extends GetView<HomeController> {
           controller.changePage(page: 2);
         }
       });
+    } else {
+      print(controller.cAuth.userLogado!.peso.toString());
     }
     return Scaffold(
       body: PageView(

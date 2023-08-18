@@ -27,7 +27,7 @@ class AuthController extends GetxController {
         userLogado = UserModel.fromJson(mapaUser);
         print(userLogado.runtimeType.toString());
       }
-
+      preencherUser = false;
       return AppPages.INITIAL;
     }
   }

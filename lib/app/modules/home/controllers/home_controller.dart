@@ -27,6 +27,7 @@ class HomeController extends GetxController {
   List<GlobalKey<FormState>> formKeys = [GlobalKey<FormState>(), GlobalKey<FormState>(), GlobalKey<FormState>()];
   @override
   void onInit() {
+    cSaveInfo.formChave = formKeys[2];
     teste();
     super.onInit();
   }

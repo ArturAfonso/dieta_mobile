@@ -10,8 +10,15 @@ import '../../../data/shared/dieta_utils.dart';
 class SaveInfoUserController extends GetxController {
   AuthController cAuth = Get.find();
   GetStorage storage = GetStorage('storage');
-  //HomeController cHome = Get.find();
-  //InformacoesController cInfo = Get.find();
+  GlobalKey<FormState> formChave = GlobalKey<FormState>();
+  RxBool isSaving = false.obs;
+
+  editingUserText(String text) {
+    final FormState? formState = formChave.currentState;
+    if (formState != null && formState.validate()) {
+      saveUserInfo(form: formChave);
+    }
+  }
 
   Future<bool> saveUserInfo({
     required GlobalKey<FormState> form,
@@ -19,6 +26,7 @@ class SaveInfoUserController extends GetxController {
     bool canChangePage = false;
     final FormState? formState = form.currentState;
     if (formState != null && formState.validate()) {
+      isSaving.value = true;
       InformacoesController cInfo = Get.find();
       double gda = DietaUtils.calcularGCD(intensidade: 'Sedentário', altura: 173, idade: 30, peso: 100, sexo: "H");
       double? peso = double.tryParse(cInfo.controllerPeso.text);
@@ -27,7 +35,7 @@ class SaveInfoUserController extends GetxController {
           'userLogado',
           UserModel(
             altura: cInfo.controllerAltura.text,
-            fa: cInfo.controllerFA.text,
+            fa: cInfo.selectedFA.value,
             gda: gda,
             genero: cInfo.generoUser,
             idade: cInfo.controllerIdade.text,
@@ -35,14 +43,17 @@ class SaveInfoUserController extends GetxController {
           ));
 
       cAuth.preencherUser = false;
+      cAuth.update();
       cAuth.userLogado = UserModel(
         altura: cInfo.controllerAltura.text,
-        fa: cInfo.controllerFA.text,
+        fa: cInfo.selectedFA.value,
         gda: gda,
         genero: cInfo.generoUser,
         idade: cInfo.controllerIdade.text,
         peso: peso,
       );
+      isSaving.value = false;
+      cAuth.update();
       canChangePage = true;
       return canChangePage;
     } else {

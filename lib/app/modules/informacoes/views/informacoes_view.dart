@@ -3,6 +3,7 @@
 import 'package:dieta_mobile/app/data/shared/constants_lists.dart';
 import 'package:dieta_mobile/app/data/shared/constants_methods.dart';
 import 'package:dieta_mobile/app/data/shared/widgets/customfextformfield_ait.dart';
+import 'package:dieta_mobile/app/modules/auth/controllers/auth_controller.dart';
 import 'package:flutter/material.dart';
 
 import 'package:get/get.dart';
@@ -16,6 +17,7 @@ class InformacoesView extends GetView<InformacoesController> {
 
   @override
   Widget build(BuildContext context) {
+    controller.preencheCamposInfo();
     return Form(
       key: controller.cHome.formKeys[controller.cHome.currentIndex.value],
       child: Scaffold(
@@ -35,7 +37,7 @@ class InformacoesView extends GetView<InformacoesController> {
               child: Column(
                 children: [
                   GroupButton<String>(
-                    buttons: const ["M", "F"],
+                    buttons: const ["H", "M"],
                     controller: controller.sexControllerButton,
                     onSelected: (String g, int number, bool bo) {
                       print(g);
@@ -68,13 +70,21 @@ class InformacoesView extends GetView<InformacoesController> {
                               const SizedBox(
                                 height: 20,
                               ),
-                              const Text("5451.24",
-                                  textAlign: TextAlign.center,
-                                  style: TextStyle(
-                                    fontSize: 30,
-                                    fontWeight: FontWeight.bold,
-                                    color: Colors.red,
-                                  )),
+                              GetBuilder<AuthController>(
+                                init: controller.cAuth,
+                                initState: (_) {},
+                                builder: (_) {
+                                  return controller.cSaveUser.isSaving.value == true
+                                      ? const CircularProgressIndicator()
+                                      : Text(controller.cAuth.userLogado?.gda?.toString() ?? "",
+                                          textAlign: TextAlign.center,
+                                          style: const TextStyle(
+                                            fontSize: 30,
+                                            fontWeight: FontWeight.bold,
+                                            color: Colors.red,
+                                          ));
+                                },
+                              ),
                             ],
                           ),
                         ),
@@ -86,6 +96,9 @@ class InformacoesView extends GetView<InformacoesController> {
                       const Text("Peso: "),
                       Expanded(
                         child: CustomTextFormFieldAit(
+                          onChanged: (text) {
+                            controller.cSaveUser.editingUserText(text);
+                          },
                           customTextFormController: controller.controllerPeso,
                           inputType: TextInputType.number,
                           textStyle: const TextStyle(
