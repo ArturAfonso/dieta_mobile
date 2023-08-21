@@ -25,5 +25,11 @@ flutter:
   uses-material-design: true
 
   assets:
-    - assets/images/em-forma.png
+    - assets/images/em-forma-man.png
+    - assets/images/em-forma-woman.png
+    - assets/icons/cooking-stove.png
+    - assets/icons/cooking.png
+    - assets/icons/form.png
+    - assets/icons/food-serving.png
+
 

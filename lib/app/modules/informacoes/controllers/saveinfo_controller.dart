@@ -9,6 +9,7 @@ import '../../../data/shared/dieta_utils.dart';
 
 class SaveInfoUserController extends GetxController {
   AuthController cAuth = Get.find();
+// InformacoesController cInfo = Get.find();
   GetStorage storage = GetStorage('storage');
   GlobalKey<FormState> formChave = GlobalKey<FormState>();
   RxBool isSaving = false.obs;
@@ -28,7 +29,12 @@ class SaveInfoUserController extends GetxController {
     if (formState != null && formState.validate()) {
       isSaving.value = true;
       InformacoesController cInfo = Get.find();
-      double gda = DietaUtils.calcularGCD(intensidade: 'Sedentário', altura: 173, idade: 30, peso: 100, sexo: "H");
+      double gda = DietaUtils.calcularGCD(
+          intensidade: cInfo.selectedFA.value,
+          altura: int.parse(cInfo.controllerAltura.text),
+          idade: int.parse(cInfo.controllerIdade.text),
+          peso: double.parse(cInfo.controllerPeso.text),
+          sexo: cInfo.generoUser);
       double? peso = double.tryParse(cInfo.controllerPeso.text);
 
       storage.write(

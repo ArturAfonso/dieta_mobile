@@ -1,3 +1,4 @@
+import 'package:dieta_mobile/app/data/shared/constants_methods.dart';
 import 'package:dieta_mobile/app/modules/auth/controllers/auth_controller.dart';
 import 'package:dieta_mobile/app/modules/home/controllers/home_controller.dart';
 import 'package:dieta_mobile/app/modules/informacoes/controllers/saveinfo_controller.dart';
@@ -12,6 +13,7 @@ class InformacoesController extends GetxController {
 /*   final infoUserFormKey = GlobalKey<FormState>(); */
   final ScrollController scrollinformacoesAitController = ScrollController();
   GroupButtonController sexControllerButton = GroupButtonController();
+  RxString iconBody = "assets/images/em-forma-man.png".obs;
 
   final TextEditingController controllerPeso = TextEditingController();
   final TextEditingController controllerAltura = TextEditingController();
@@ -32,9 +34,11 @@ class InformacoesController extends GetxController {
 
   preencheCamposInfo() {
     if (cAuth.userLogado != null) {
-      controllerPeso.text = cAuth.userLogado?.peso.toString() ?? "";
-      controllerAltura.text = cAuth.userLogado?.altura.toString() ?? "";
-      controllerIdade.text = cAuth.userLogado?.idade.toString() ?? "";
+      iconBody.value =
+          cAuth.userLogado!.genero == "H" ? "assets/images/em-forma-man.png" : "assets/images/em-forma-woman.png";
+      controllerPeso.text = ConstantMethods.removeDecimalIfZero(cAuth.userLogado!.peso.toString()) ?? "";
+      controllerAltura.text = ConstantMethods.removeDecimalIfZero(cAuth.userLogado!.altura.toString()) ?? "";
+      controllerIdade.text = ConstantMethods.removeDecimalIfZero(cAuth.userLogado!.idade.toString()) ?? "";
       selectedFA.value = cAuth.userLogado?.fa.toString() ?? "";
       generoUser = cAuth.userLogado?.genero.toString() ?? "F";
       sexControllerButton.selectIndex(generoUser == "H" ? 0 : 1);

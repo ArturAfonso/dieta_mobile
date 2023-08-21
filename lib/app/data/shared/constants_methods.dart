@@ -21,4 +21,15 @@ class ConstantMethods {
     Map<String, dynamic>? error = {"hasError": hasError, "statusCode": statusCode, "statusText": statusText};
     return error;
   }
+
+  static String removeDecimalIfZero(String number) {
+    String numberString = number;
+    List<String> parts = numberString.split('.');
+
+    if (parts.length > 1 && parts[1][0] == '0') {
+      return parts[0];
+    } else {
+      return numberString;
+    }
+  }
 }

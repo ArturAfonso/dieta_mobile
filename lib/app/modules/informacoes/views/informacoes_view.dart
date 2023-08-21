@@ -18,14 +18,28 @@ class InformacoesView extends GetView<InformacoesController> {
   @override
   Widget build(BuildContext context) {
     controller.preencheCamposInfo();
+    print(controller.cAuth.userLogado?.gda.toString() ?? "");
     return Form(
       key: controller.cHome.formKeys[controller.cHome.currentIndex.value],
       child: Scaffold(
         appBar: AppBar(
           backgroundColor: Theme.of(context).primaryColor,
-          title: Text(
-            'Informações do usuário',
-            style: TextStyle(color: Theme.of(context).secondaryHeaderColor),
+          title: Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              const Text(
+                'Informações do usuário',
+                style: TextStyle(color: Colors.white),
+              ),
+              const SizedBox(
+                width: 20,
+              ),
+              Image.asset(
+                "assets/icons/form.png",
+                height: 50,
+              )
+            ],
           ),
           centerTitle: true,
         ),
@@ -42,7 +56,10 @@ class InformacoesView extends GetView<InformacoesController> {
                     onSelected: (String g, int number, bool bo) {
                       print(g);
                       controller.generoUser = g;
-                      //controller.cHome.formKeys[controller.cHome.currentIndex.value].currentState!.validate();
+                      controller.iconBody.value = controller.generoUser == "H"
+                          ? "assets/images/em-forma-man.png"
+                          : "assets/images/em-forma-woman.png";
+                      controller.cSaveUser.saveUserInfo(form: controller.cSaveUser.formChave);
                     },
                     options: GroupButtonOptions(
                       borderRadius: BorderRadius.circular(16),
@@ -53,7 +70,9 @@ class InformacoesView extends GetView<InformacoesController> {
                   ),
                   Row(
                     children: [
-                      Expanded(flex: 3, child: Image.asset(height: Get.size.height / 3, "assets/images/em-forma.png")),
+                      Expanded(
+                          flex: 3,
+                          child: Obx(() => Image.asset(height: Get.size.height / 3, controller.iconBody.value))),
                       Expanded(
                         flex: 2,
                         child: SizedBox(
@@ -76,7 +95,7 @@ class InformacoesView extends GetView<InformacoesController> {
                                 builder: (_) {
                                   return controller.cSaveUser.isSaving.value == true
                                       ? const CircularProgressIndicator()
-                                      : Text(controller.cAuth.userLogado?.gda?.toString() ?? "",
+                                      : Text(controller.cAuth.userLogado?.gda?.toStringAsFixed(2) ?? "",
                                           textAlign: TextAlign.center,
                                           style: const TextStyle(
                                             fontSize: 30,
@@ -141,6 +160,9 @@ class InformacoesView extends GetView<InformacoesController> {
                       Expanded(
                         child: CustomTextFormFieldAit(
                           customTextFormController: controller.controllerAltura,
+                          onChanged: (text) {
+                            controller.cSaveUser.editingUserText(text);
+                          },
                           inputType: TextInputType.number,
                           textStyle: const TextStyle(
                             color: Colors.black54,
@@ -182,6 +204,9 @@ class InformacoesView extends GetView<InformacoesController> {
                       Expanded(
                         child: CustomTextFormFieldAit(
                           customTextFormController: controller.controllerIdade,
+                          onChanged: (text) {
+                            controller.cSaveUser.editingUserText(text);
+                          },
                           inputType: TextInputType.number,
                           textStyle: const TextStyle(
                             color: Colors.black54,
@@ -248,7 +273,7 @@ class InformacoesView extends GetView<InformacoesController> {
                                 // isDense: false,
                                 isExpanded: true,
                                 iconEnabledColor: Theme.of(context).primaryColor,
-                                focusColor: Colors.blue,
+                                focusColor: Colors.yellow,
                                 borderRadius: BorderRadius.circular(10),
                                 value: controller.selectedFA.value,
                                 items: ConstantsLists.constlistFA.map((String value) {
@@ -260,6 +285,7 @@ class InformacoesView extends GetView<InformacoesController> {
                                 onChanged: (newvalue) {
                                   controller.selectedFA.value = newvalue.toString();
                                   print(controller.selectedFA.value);
+                                  controller.cSaveUser.saveUserInfo(form: controller.cSaveUser.formChave);
                                 },
                                 validator: (value) {
                                   if (value == null || value == '-') {

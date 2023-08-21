@@ -118,7 +118,7 @@ grama/kilo proteina = proteina total / peso
     }
 
     gastoCaloricoDiario = calcularIntensidade(intensidade, gastoCaloricoDiario);
-    gastoCaloricoDiario = double.parse(gastoCaloricoDiario.toStringAsFixed(1));
+    gastoCaloricoDiario = double.parse(gastoCaloricoDiario.toStringAsFixed(2));
 
     print(gastoCaloricoDiario);
     return gastoCaloricoDiario;

@@ -13,7 +13,23 @@ class RefeicoesView extends GetView<RefeicoesController> {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Theme.of(context).primaryColor,
-        title: const Text('Refeições'),
+        title: Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            const Text(
+              'Refeições',
+              style: TextStyle(color: Colors.white),
+            ),
+            const SizedBox(
+              width: 20,
+            ),
+            Image.asset(
+              "assets/icons/form.png",
+              height: 50,
+            )
+          ],
+        ),
         centerTitle: true,
       ),
       body: ListView.separated(
