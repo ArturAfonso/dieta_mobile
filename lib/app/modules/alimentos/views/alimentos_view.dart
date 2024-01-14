@@ -11,22 +11,9 @@ class AlimentosView extends GetView<AlimentosController> {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Theme.of(context).primaryColor,
-        title: Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: [
-            const Text(
-              'Alimentos',
-              style: TextStyle(color: Colors.white),
-            ),
-            const SizedBox(
-              width: 20,
-            ),
-            Image.asset(
-              "assets/icons/cooking.png",
-              height: 50,
-            )
-          ],
+        title: const Text(
+          'Alimentos',
+          style: TextStyle(color: Colors.white),
         ),
         centerTitle: true,
       ),

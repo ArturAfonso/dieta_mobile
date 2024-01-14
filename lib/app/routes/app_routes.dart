@@ -7,6 +7,7 @@ abstract class Routes {
   Routes._();
   static const HOME = _Paths.HOME;
   static const REFEICOES = _Paths.REFEICOES;
+  static const REFEICAOEDIT = _Paths.REFEICAOEDIT;
   static const ALIMENTOS = _Paths.ALIMENTOS;
   static const INFORMACOES = _Paths.INFORMACOES;
   static const METAS = _Paths.METAS;
@@ -17,6 +18,7 @@ abstract class _Paths {
   _Paths._();
   static const HOME = '/home';
   static const REFEICOES = '/refeicoes';
+  static const REFEICAOEDIT = '/refeicaoedit';
   static const ALIMENTOS = '/alimentos';
   static const INFORMACOES = '/informacoes';
   static const METAS = '/metas';

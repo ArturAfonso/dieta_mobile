@@ -16,13 +16,14 @@ class BottomBarHome extends StatelessWidget {
   Widget build(BuildContext context) {
     return Obx((() => BottomNavigationBar(
           type: BottomNavigationBarType.fixed,
-          backgroundColor: Theme.of(context).primaryColor, //AppSettings.of(context)!.settings.textColorPrimaryLight,
+          backgroundColor:
+              Theme.of(context).colorScheme.onPrimary, //AppSettings.of(context)!.settings.textColorPrimaryLight,
           //fixedColor: G4settings().textColorQuaternaryLight,
 
-          selectedItemColor: Colors.yellowAccent,
+          selectedItemColor: Theme.of(context).colorScheme.primary,
           selectedIconTheme: const IconThemeData(size: 32),
           unselectedIconTheme: const IconThemeData(size: 32),
-          unselectedItemColor: Colors.white,
+          unselectedItemColor: Theme.of(context).colorScheme.secondary.withOpacity(0.6),
           selectedLabelStyle: const TextStyle(
               color: Colors.red /* AppSettings.of(context)!.settings.textColorTertiaryLight */, fontSize: 12),
           unselectedLabelStyle: const TextStyle(

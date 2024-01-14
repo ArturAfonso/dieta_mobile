@@ -26,6 +26,7 @@ void main() async {
       initialRoute: cAuth.loadUserLogado(),
       getPages: AppPages.routes,
       theme: lightTheme,
+
       //darkTheme: darkTheme,
       //themeMode: getTheme(),
     ),

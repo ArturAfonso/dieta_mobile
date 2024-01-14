@@ -24,22 +24,9 @@ class InformacoesView extends GetView<InformacoesController> {
       child: Scaffold(
         appBar: AppBar(
           backgroundColor: Theme.of(context).primaryColor,
-          title: Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: [
-              const Text(
-                'Informações do usuário',
-                style: TextStyle(color: Colors.white),
-              ),
-              const SizedBox(
-                width: 20,
-              ),
-              Image.asset(
-                "assets/icons/form.png",
-                height: 50,
-              )
-            ],
+          title: const Text(
+            'Informações do usuário',
+            style: TextStyle(color: Colors.white),
           ),
           centerTitle: true,
         ),

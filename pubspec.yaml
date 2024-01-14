@@ -31,5 +31,26 @@ flutter:
     - assets/icons/cooking.png
     - assets/icons/form.png
     - assets/icons/food-serving.png
+  
+  fonts:
+    - family: Gilmer
+      fonts:
+        - asset: assets/fonts/Gilmer-Font/Gilmer Regular.otf
+    - family: GilmerMedium
+      fonts:
+        - asset: assets/fonts/Gilmer-Font/Gilmer Medium.otf
+
+    - family: GilmerLight
+      fonts:
+        - asset: assets/fonts/Gilmer-Font/Gilmer Light.otf
+
+    - family: GilmerHeavy
+      fonts:
+        - asset: assets/fonts/Gilmer-Font/Gilmer Heavy.otf
+
+    - family: GilmerBold
+      fonts:
+        - asset: assets/fonts/Gilmer-Font/Gilmer Bold.otf
+          
 
 
