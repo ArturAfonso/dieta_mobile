@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:dieta_mobile/app/modules/refeicoes/controllers/refeicoes_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -23,131 +25,92 @@ class RefeicaoEditpage extends GetView<RefeicoesController> {
           //mainAxisAlignment: MainAxisAlignment.center,
           children: [
             GestureDetector(
-              onTap: () {
-                _showSelectImage(context);
-              },
-              child: Container(
-                width: 200,
-                height: 200,
-                decoration: BoxDecoration(
-                  shape: BoxShape.circle,
-                  color: Get.theme.colorScheme.onPrimaryContainer,
-                ),
-                child: Stack(
-                  children: [
-                    const Center(
-                      child: Text(
-                        'Adicionar imagem',
-                        style: TextStyle(color: Colors.white),
-                      ),
-                    ),
-                    Positioned(
-                      bottom: 8,
-                      right: 8,
-                      child: Container(
-                        decoration: BoxDecoration(
-                          shape: BoxShape.circle,
-                          color: Get.theme.colorScheme.primary,
+                onTap: () {
+                  controller.showSelectImage(context);
+                },
+                child: Obx(
+                  () => controller.base64Image.value != ''
+                      ? Container(
+                          width: 200,
+                          height: 200,
+                          decoration: BoxDecoration(
+                            shape: BoxShape.circle,
+                            image: DecorationImage(
+                              image: MemoryImage(
+                                base64Decode(controller.base64Image.value),
+                              ),
+                              fit: BoxFit.fill,
+                            ),
+                          ),
+                          child: Stack(
+                            children: [
+                              Positioned(
+                                bottom: 8,
+                                right: 8,
+                                child: Container(
+                                  decoration: BoxDecoration(
+                                    shape: BoxShape.circle,
+                                    color: Get.theme.colorScheme.primary,
+                                  ),
+                                  child: IconButton(
+                                    icon: const Icon(Icons.edit, color: Colors.white),
+                                    onPressed: () {
+                                      // Lógica para ação do botão de câmera
+                                      controller.showSelectImage(context);
+                                    },
+                                  ),
+                                ),
+                              )
+                            ],
+                          ),
+                        )
+                      : Container(
+                          width: 200,
+                          height: 200,
+                          decoration: BoxDecoration(
+                            shape: BoxShape.circle,
+                            color: Get.theme.colorScheme.onPrimaryContainer,
+                          ),
+                          child: Stack(
+                            children: [
+                              const Center(
+                                child: Text(
+                                  'Adicionar imagem',
+                                  style: TextStyle(color: Colors.white),
+                                ),
+                              ),
+                              Positioned(
+                                bottom: 8,
+                                right: 8,
+                                child: Container(
+                                  decoration: BoxDecoration(
+                                    shape: BoxShape.circle,
+                                    color: Get.theme.colorScheme.primary,
+                                  ),
+                                  child: IconButton(
+                                    icon: const Icon(Icons.camera_alt_outlined, color: Colors.white),
+                                    onPressed: () {
+                                      // Lógica para ação do botão de câmera
+                                      controller.showSelectImage(context);
+                                    },
+                                  ),
+                                ),
+                              ),
+                            ],
+                          ),
                         ),
-                        child: IconButton(
-                          icon: const Icon(Icons.camera_alt_outlined, color: Colors.white),
-                          onPressed: () {
-                            // Lógica para ação do botão de câmera
-                          },
-                        ),
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-            ),
+                )),
             const SizedBox(height: 20),
-            const Expanded(child: MyForm()),
+            const Expanded(child: MenuForm()),
           ],
         ),
       ),
     );
   }
-
-  void _showSelectImage(BuildContext context) {
-    showDialog(
-      context: context,
-      builder: (BuildContext context) {
-        return AlertDialog(
-          title: Center(
-            child: Text(
-              'Importar imagem',
-              style: TextStyle(color: Get.theme.primaryColor),
-            ),
-          ),
-          content: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Expanded(
-                child: GestureDetector(
-                  onTap: () {
-                    // Adicione a função desejada para a câmera aqui
-                    print('Câmera pressionada');
-                  },
-                  child: Container(
-                    height: Get.size.height / 7,
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(16),
-                      border: Border.all(width: 2),
-                    ),
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: const [
-                        Icon(
-                          Icons.camera_alt_outlined,
-                          size: 50,
-                        ),
-                        SizedBox(height: 10),
-                        Text('Tirar foto'),
-                      ],
-                    ),
-                  ),
-                ),
-              ),
-              const SizedBox(
-                width: 10,
-              ),
-              Expanded(
-                child: GestureDetector(
-                  onTap: () {
-                    // Adicione a função desejada para a galeria aqui
-                    print('Galeria pressionada');
-                  },
-                  child: Container(
-                    height: Get.size.height / 7,
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(16),
-                      border: Border.all(width: 2),
-                    ),
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: const [
-                        Icon(
-                          Icons.photo_library_outlined,
-                          size: 50,
-                        ),
-                        SizedBox(height: 10),
-                        Text('Galeria'),
-                      ],
-                    ),
-                  ),
-                ),
-              ),
-            ],
-          ),
-        );
-      },
-    );
-  }
 }
 
-class MyForm extends StatelessWidget {
-  const MyForm({super.key});
+class MenuForm extends GetView<RefeicoesController> {
+  const MenuForm({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -155,10 +118,10 @@ class MyForm extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         const Text(
-          'Primeiro Nome',
+          'Nome da refeição',
           style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
         ),
-        TextFormField(),
+        const MyCustomTextField(),
         const SizedBox(height: 20),
         const Text(
           'Itens da Refeição',
@@ -177,6 +140,29 @@ class MyForm extends StatelessWidget {
           ),
         ),
       ],
+    );
+  }
+}
+
+class MyCustomTextField extends StatelessWidget {
+  const MyCustomTextField({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return TextFormField(
+      style: const TextStyle(color: Colors.orange), // Cor do texto digitado (laranja)
+      decoration: InputDecoration(
+        filled: true,
+        fillColor: const Color(0xFFDADADA), // Cor do fundo (cinza)
+        border: OutlineInputBorder(
+          borderSide: BorderSide.none,
+          borderRadius: BorderRadius.circular(8.0),
+        ),
+        prefixIcon: const Icon(Icons.person, color: Colors.orange), // Ícone à esquerda
+        suffixIcon: const Icon(Icons.info, color: Colors.orange), // Ícone à direita
+        prefixText: 'Texto Fixo ', // Texto fixo à esquerda
+        prefixStyle: TextStyle(color: Colors.grey[600]), // Cor do texto fixo (cinza escuro)
+      ),
     );
   }
 }

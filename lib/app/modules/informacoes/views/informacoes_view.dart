@@ -2,7 +2,7 @@
 
 import 'package:dieta_mobile/app/data/shared/constants_lists.dart';
 import 'package:dieta_mobile/app/data/shared/constants_methods.dart';
-import 'package:dieta_mobile/app/data/shared/widgets/customfextformfield_ait.dart';
+import 'package:dieta_mobile/app/data/shared/widgets/customfextformfield.dart';
 import 'package:dieta_mobile/app/modules/auth/controllers/auth_controller.dart';
 import 'package:flutter/material.dart';
 
