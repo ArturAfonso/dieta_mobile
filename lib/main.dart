@@ -20,6 +20,7 @@ void main() async {
   Get.lazyPut(() => SaveInfoUserController());
   Get.lazyPut(() => MetasController());
   // calcularGCD(intensidade: 'Sedentário', altura: 173, idade: 30, peso: 100, sexo: "H");
+
   runApp(
     GetMaterialApp(
       title: "Application",

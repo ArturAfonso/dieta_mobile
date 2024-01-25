@@ -5,7 +5,8 @@ part 'color_schemes.g.dart';
 
 ThemeData get lightTheme => ThemeData(
       fontFamily: FontsConst.GILMER,
-      textTheme: const TextTheme(bodyMedium: TextStyle(fontSize: 16)),
+      textTheme: const TextTheme(
+          bodyMedium: TextStyle(fontSize: 18), bodyLarge: TextStyle(fontSize: 18), bodySmall: TextStyle(fontSize: 13)),
       useMaterial3: true,
       colorScheme: _lightColorScheme,
       appBarTheme: AppBarTheme(

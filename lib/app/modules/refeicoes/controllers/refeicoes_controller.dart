@@ -2,6 +2,7 @@ import 'dart:convert';
 import 'dart:io';
 
 import 'package:device_info_plus/device_info_plus.dart';
+import 'package:dieta_mobile/app/data/models/alimento_model.dart';
 import 'package:dieta_mobile/app/data/models/refeicao_model.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -10,19 +11,72 @@ import 'package:permission_handler/permission_handler.dart';
 
 class RefeicoesController extends GetxController {
   RxList<RefeicaoModel> listRefeicoes = <RefeicaoModel>[].obs;
+  RxList<AlimentoModel> listAlimentos = <AlimentoModel>[].obs;
+  RxBool editRefPage = false.obs;
+
   @override
   void onInit() {
+    listAlimentos.addAll(
+      [
+        AlimentoModel(descricao: "aveia", calorias: 40, carboidratos: 50, gorduras: 10, proteinas: 5),
+        AlimentoModel(
+          descricao: "arroz",
+          calorias: 25,
+          carboidratos: 30,
+          gorduras: 5,
+          proteinas: 6,
+        ),
+        AlimentoModel(
+          descricao: "feijao",
+          calorias: 5,
+          carboidratos: 10,
+          gorduras: 10,
+          proteinas: 8,
+        ),
+        AlimentoModel(
+          descricao: "peito de frango",
+          calorias: 20,
+          carboidratos: 50,
+          gorduras: 10,
+          proteinas: 50,
+        ),
+        AlimentoModel(
+          descricao: "ovo",
+          calorias: 15,
+          carboidratos: 25,
+          gorduras: 15,
+          proteinas: 10,
+        )
+      ],
+    );
     listRefeicoes.addAll([
-      RefeicaoModel(calorias: 50),
+      RefeicaoModel(calorias: 50, alimentos: listAlimentos),
       RefeicaoModel(calorias: 20),
       RefeicaoModel(calorias: 15),
       RefeicaoModel(calorias: 32)
     ]);
+
     super.onInit();
   }
 
   TextEditingController nomeRefeicao = TextEditingController();
   RxString base64Image = ''.obs;
+
+  void enableEditPage() {
+    editRefPage.value = !editRefPage.value;
+    update();
+  }
+
+  void showSnackbar(BuildContext context) {
+    // Cria um Snackbar usando o widget SnackBar
+    const snackBar = SnackBar(
+      content: Text('Snackbar Example'),
+      duration: Duration(seconds: 2), // Duração do Snackbar
+    );
+
+    // Exibe o Snackbar na tela
+    ScaffoldMessenger.of(context).showSnackBar(snackBar);
+  }
 
   void showSelectImage(BuildContext context) {
     showDialog(
