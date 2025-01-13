@@ -2,7 +2,7 @@
 
 import 'package:dieta_mobile/app/data/shared/constants_lists.dart';
 import 'package:dieta_mobile/app/data/shared/constants_methods.dart';
-import 'package:dieta_mobile/app/data/shared/widgets/customfextformfield_ait.dart';
+import 'package:dieta_mobile/app/data/shared/widgets/customfextformfield.dart';
 import 'package:dieta_mobile/app/modules/auth/controllers/auth_controller.dart';
 import 'package:flutter/material.dart';
 
@@ -24,22 +24,9 @@ class InformacoesView extends GetView<InformacoesController> {
       child: Scaffold(
         appBar: AppBar(
           backgroundColor: Theme.of(context).primaryColor,
-          title: Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: [
-              const Text(
-                'Informações do usuário',
-                style: TextStyle(color: Colors.white),
-              ),
-              const SizedBox(
-                width: 20,
-              ),
-              Image.asset(
-                "assets/icons/form.png",
-                height: 50,
-              )
-            ],
+          title: const Text(
+            'Informações do usuário',
+            style: TextStyle(color: Colors.white),
           ),
           centerTitle: true,
         ),

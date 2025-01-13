@@ -1,5 +1,9 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.br.arturafonso.dieta_mobile">
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"
+        android:maxSdkVersion="32"/>
+<uses-permission android:name="android.permission.READ_MEDIA_IMAGES"/>
+
    <application
         android:label="dieta_mobile"
         android:name="${applicationName}"

@@ -1,3 +1,4 @@
+import 'package:dieta_mobile/app/modules/refeicoes/views/refeicao_editpage.dart';
 import 'package:get/get.dart';
 
 import '../modules/alimentos/bindings/alimentos_binding.dart';
@@ -33,6 +34,12 @@ class AppPages {
       page: () => const RefeicoesView(),
       binding: RefeicoesBinding(),
     ),
+    GetPage(
+        name: _Paths.REFEICAOEDIT,
+        page: () => const RefeicaoEditpage(),
+        binding: RefeicoesBinding(),
+        transitionDuration: const Duration(milliseconds: 100),
+        transition: Transition.rightToLeft),
     GetPage(
       name: _Paths.ALIMENTOS,
       page: () => const AlimentosView(),

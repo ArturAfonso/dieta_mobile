@@ -11,7 +11,10 @@ class MetasView extends GetView<MetasController> {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Theme.of(context).primaryColor,
-        title: const Text('Metas'),
+        title: const Text(
+          'Metas',
+          style: TextStyle(color: Colors.white),
+        ),
         centerTitle: true,
       ),
       body: Center(
