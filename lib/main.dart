@@ -24,7 +24,7 @@ void main() async {
   runApp(
     GetMaterialApp(
       title: "Application",
-      initialRoute: cAuth.loadUserLogado(),
+      initialRoute: AppPages.INITIAL, //cAuth.loadUserLogado(),
       getPages: AppPages.routes,
       theme: lightTheme,
 

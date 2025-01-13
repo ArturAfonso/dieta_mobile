@@ -14,6 +14,18 @@ class HomeView extends GetView<HomeController> {
 
   @override
   Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: const Text('Home Page'),
+      ),
+      body: const Center(
+        child: Text('Bem-vindo à Home Page!'),
+      ),
+    );
+  }
+/* 
+  @override
+  Widget build(BuildContext context) {
     if (controller.cAuth.preencherUser == true) {
       Future.delayed(const Duration(seconds: 1), () {
         if (controller.pageController.hasClients) {
@@ -34,5 +46,5 @@ class HomeView extends GetView<HomeController> {
           children: const [RefeicoesView(), AlimentosView(), InformacoesView(), MetasView()]),
       bottomNavigationBar: BottomBarHome(controller: controller),
     );
-  }
+  } */
 }

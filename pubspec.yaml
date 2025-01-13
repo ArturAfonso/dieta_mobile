@@ -14,9 +14,11 @@ dependencies:
   flutter_vector_icons: ^2.0.0
   get_storage: ^2.1.1
   get: 4.6.5
+  google_fonts: ^3.0.1
   group_button: ^5.3.2
   image_picker: 1.0.4
   permission_handler: 11.0.1
+  phosphor_flutter: ^1.0.0
   validatorless: ^1.2.3
 
 dev_dependencies: 
@@ -35,25 +37,25 @@ flutter:
     - assets/icons/form.png
     - assets/icons/food-serving.png
   
-  fonts:
-    - family: Gilmer
-      fonts:
-        - asset: assets/fonts/Gilmer-Font/Gilmer Regular.otf
-    - family: GilmerMedium
-      fonts:
-        - asset: assets/fonts/Gilmer-Font/Gilmer Medium.otf
+  # fonts:
+  #   - family: Gilmer
+  #     fonts:
+  #       - asset: assets/fonts/Gilmer-Font/Gilmer Regular.otf
+  #   - family: GilmerMedium
+  #     fonts:
+  #       - asset: assets/fonts/Gilmer-Font/Gilmer Medium.otf
 
-    - family: GilmerLight
-      fonts:
-        - asset: assets/fonts/Gilmer-Font/Gilmer Light.otf
+  #   - family: GilmerLight
+  #     fonts:
+  #       - asset: assets/fonts/Gilmer-Font/Gilmer Light.otf
 
-    - family: GilmerHeavy
-      fonts:
-        - asset: assets/fonts/Gilmer-Font/Gilmer Heavy.otf
+  #   - family: GilmerHeavy
+  #     fonts:
+  #       - asset: assets/fonts/Gilmer-Font/Gilmer Heavy.otf
 
-    - family: GilmerBold
-      fonts:
-        - asset: assets/fonts/Gilmer-Font/Gilmer Bold.otf
+  #   - family: GilmerBold
+  #     fonts:
+  #       - asset: assets/fonts/Gilmer-Font/Gilmer Bold.otf
           
 
 
