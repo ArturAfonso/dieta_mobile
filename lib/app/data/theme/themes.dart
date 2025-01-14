@@ -5,6 +5,17 @@ import 'package:google_fonts/google_fonts.dart';
 part 'color_schemes.g.dart';
 
 ThemeData get lightTheme => ThemeData(
+      elevatedButtonTheme: ElevatedButtonThemeData(
+        style: ButtonStyle(
+          backgroundColor: MaterialStateProperty.resolveWith<Color>((states) {
+            if (states.contains(MaterialState.pressed)) {
+              return _lightColorScheme.onSurface;
+            }
+            return _lightColorScheme.onSurfaceVariant;
+          }),
+          foregroundColor: MaterialStateProperty.all<Color>(Colors.white),
+        ),
+      ),
       textTheme: GoogleFonts.nunitoSansTextTheme(
         const TextTheme(
           bodyLarge: TextStyle(fontSize: 18, height: 1.3),
@@ -26,17 +37,33 @@ ThemeData get lightTheme => ThemeData(
           ),
         ),
         centerTitle: true,
-        backgroundColor: _lightColorScheme.primary,
+        backgroundColor: _lightColorScheme.onPrimary,
         iconTheme: IconThemeData(color: _lightColorScheme.onPrimary),
       ),
       floatingActionButtonTheme: FloatingActionButtonThemeData(
-        backgroundColor: _lightColorScheme.primary,
+        backgroundColor: _lightColorScheme.onPrimary,
         foregroundColor: _lightColorScheme.onPrimary,
       ),
       segmentedButtonTheme: _segmentedButtonTheme,
     );
 
 ThemeData get darkTheme => ThemeData(
+      elevatedButtonTheme: ElevatedButtonThemeData(
+        style: ButtonStyle(
+          backgroundColor: MaterialStateProperty.resolveWith<Color>((states) {
+            if (states.contains(MaterialState.pressed)) {
+              return _darkColorScheme.surface;
+            }
+            return _darkColorScheme.onSurface;
+          }),
+          foregroundColor: MaterialStateProperty.all<Color>(Colors.white),
+          shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+            RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(8.0),
+            ),
+          ),
+        ),
+      ),
       textTheme: GoogleFonts.nunitoSansTextTheme(
         const TextTheme(
           bodyLarge: TextStyle(fontSize: 18, height: 1.3),
@@ -58,7 +85,7 @@ ThemeData get darkTheme => ThemeData(
           ),
         ),
         centerTitle: true,
-        backgroundColor: _darkColorScheme.primary,
+        backgroundColor: _darkColorScheme.onPrimary,
         iconTheme: IconThemeData(color: _darkColorScheme.onPrimary),
       ),
       segmentedButtonTheme: _segmentedButtonTheme,
