@@ -5,7 +5,7 @@ import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 
 // ignore: must_be_immutable
-class CustomTextFormFieldAit extends StatefulWidget {
+class AitCustomTextFormFieldAit extends StatefulWidget {
   final TextStyle? textStyle;
   GetxController? controller;
   final Widget? icon;
@@ -33,7 +33,7 @@ class CustomTextFormFieldAit extends StatefulWidget {
   TextEditingController customTextFormController = TextEditingController();
   String? Function(String?)? validator;
 
-  CustomTextFormFieldAit({
+  AitCustomTextFormFieldAit({
     Key? key,
     this.textStyle,
     this.controller,
@@ -62,10 +62,10 @@ class CustomTextFormFieldAit extends StatefulWidget {
   }) : super(key: key);
 
   @override
-  State<CustomTextFormFieldAit> createState() => _CustomTextFormField();
+  State<AitCustomTextFormFieldAit> createState() => _CustomTextFormField();
 }
 
-class _CustomTextFormField extends State<CustomTextFormFieldAit> {
+class _CustomTextFormField extends State<AitCustomTextFormFieldAit> {
   final FocusNode _focus = FocusNode();
 
   @override

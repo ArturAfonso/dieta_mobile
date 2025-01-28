@@ -14,6 +14,10 @@ class RefeicoesController extends GetxController {
   RxList<AlimentoModel> listAlimentos = <AlimentoModel>[].obs;
   RxBool editRefPage = false.obs;
 
+  //editar refeição page
+  TextEditingController nomeRefeicao = TextEditingController();
+  TextEditingController descricaoRefeicao = TextEditingController();
+
   @override
   void onInit() {
     listAlimentos.addAll(
@@ -59,7 +63,6 @@ class RefeicoesController extends GetxController {
     super.onInit();
   }
 
-  TextEditingController nomeRefeicao = TextEditingController();
   RxString base64Image = ''.obs;
 
   void enableEditPage() {

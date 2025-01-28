@@ -1,6 +1,6 @@
 // ignore_for_file: unused_local_variable
 
-import 'package:dieta_mobile/app/modules/refeicoes/widgets/refeicao_tile.dart';
+import 'package:dieta_mobile/app/modules/refeicoes/widgets/refeicao_detalhada_tile.dart';
 import 'package:flutter/material.dart';
 
 import 'package:get/get.dart';
@@ -23,7 +23,7 @@ class RefeicoesView extends GetView<RefeicoesController> {
         body: ListView.separated(
           itemCount: 10,
           itemBuilder: (BuildContext context, int index) {
-            return RefeicaoTile(index: index);
+            return RefeicaoDetalhadaTile(index: index);
           },
           separatorBuilder: (BuildContext context, int index) {
             return Divider(

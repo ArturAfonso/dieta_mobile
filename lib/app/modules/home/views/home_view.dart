@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
 
+import '../../refeicoes/widgets/refeicao_detalhada_tile.dart';
 import '../controllers/home_controller.dart';
 
 class HomeView extends GetView<HomeController> {
@@ -82,15 +83,36 @@ class HomeView extends GetView<HomeController> {
               const SizedBox(height: 40),
               Align(
                   alignment: Alignment.centerLeft,
-                  child: Text('Refeições', style: Theme.of(context).textTheme.headlineLarge)),
+                  child: Text('Refeições', style: Theme.of(context).textTheme.headlineSmall)),
+              const SizedBox(
+                height: 10,
+              ),
               SizedBox(
                 width: double.infinity, // Largura total disponível
                 height: 50.0, // Altura do botão
                 child: ElevatedButton(
+                  style: ElevatedButton.styleFrom(
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(8.0),
+                    ),
+                  ),
                   onPressed: () {
                     // Ação do botão
                   },
-                  child: const Text('Clique Aqui'),
+                  child: Text(
+                    '+ Nova refeição',
+                    style: Theme.of(context).textTheme.bodyLarge?.copyWith(
+                          color: Theme.of(context).colorScheme.onPrimary,
+                        ),
+                  ),
+                ),
+              ),
+              Expanded(
+                child: ListView.builder(
+                  itemCount: controller.refeicoes.length,
+                  itemBuilder: (context, index) {
+                    return RefeicaoDetalhadaTile(index: index);
+                  },
                 ),
               ),
             ],

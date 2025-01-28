@@ -3,9 +3,9 @@ import 'package:dieta_mobile/app/routes/app_pages.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-class RefeicaoTile extends StatelessWidget {
+class RefeicaoDetalhadaTile extends StatelessWidget {
   final int index;
-  const RefeicaoTile({
+  const RefeicaoDetalhadaTile({
     Key? key,
     required this.index,
   }) : super(key: key);

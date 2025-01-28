@@ -74,4 +74,16 @@ class HomeController extends GetxController {
       pageController.jumpToPage(page);
     }
   }
+
+  final List<RefeicaoModel> refeicoes = List.generate(
+    15,
+    (index) => RefeicaoModel(
+      descricao: 'Refeição $index',
+      proteinas: 10.0,
+      carboidratos: 20.0,
+      gorduras: 5.0,
+      calorias: 200.0,
+      alimentos: [],
+    ),
+  );
 }

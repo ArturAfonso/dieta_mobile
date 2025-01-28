@@ -2,7 +2,7 @@
 
 import 'package:dieta_mobile/app/data/shared/constants_lists.dart';
 import 'package:dieta_mobile/app/data/shared/constants_methods.dart';
-import 'package:dieta_mobile/app/data/shared/widgets/customfextformfield.dart';
+import 'package:dieta_mobile/app/data/shared/widgets/aitcustomfextformfield.dart';
 import 'package:dieta_mobile/app/modules/auth/controllers/auth_controller.dart';
 import 'package:flutter/material.dart';
 
@@ -101,7 +101,7 @@ class InformacoesView extends GetView<InformacoesController> {
                     children: [
                       const Text("Peso: "),
                       Expanded(
-                        child: CustomTextFormFieldAit(
+                        child: AitCustomTextFormFieldAit(
                           onChanged: (text) {
                             controller.cSaveUser.editingUserText(text);
                           },
@@ -145,7 +145,7 @@ class InformacoesView extends GetView<InformacoesController> {
                     children: [
                       const Text("Altura: "),
                       Expanded(
-                        child: CustomTextFormFieldAit(
+                        child: AitCustomTextFormFieldAit(
                           customTextFormController: controller.controllerAltura,
                           onChanged: (text) {
                             controller.cSaveUser.editingUserText(text);
@@ -189,7 +189,7 @@ class InformacoesView extends GetView<InformacoesController> {
                     children: [
                       const Text("Idade: "),
                       Expanded(
-                        child: CustomTextFormFieldAit(
+                        child: AitCustomTextFormFieldAit(
                           customTextFormController: controller.controllerIdade,
                           onChanged: (text) {
                             controller.cSaveUser.editingUserText(text);

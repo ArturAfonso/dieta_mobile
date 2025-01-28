@@ -1,6 +1,6 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
-import 'dart:convert';
 
+import 'package:dieta_mobile/app/data/shared/widgets/custom_text_field.dart';
 import 'package:dieta_mobile/app/modules/refeicoes/widgets/alimento_tile.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -15,10 +15,11 @@ class RefeicaoEditpage extends GetView<RefeicoesController> {
     return Scaffold(
       appBar: AppBar(
         // leading: ,
-        backgroundColor: Theme.of(context).primaryColor,
-        title: const Text(
+        backgroundColor: Theme.of(context).colorScheme.tertiaryContainer,
+
+        title: Text(
           'Editar Refeição',
-          // style: TextStyle(color: Colors.white),
+          style: Theme.of(context).textTheme.titleLarge!.copyWith(fontWeight: FontWeight.bold),
         ),
         centerTitle: true,
         actions: [
@@ -31,98 +32,81 @@ class RefeicaoEditpage extends GetView<RefeicoesController> {
                 },
               ))
         ],
+        elevation: 0,
       ),
-      body: Padding(
-        padding: const EdgeInsets.all(8.0),
-        child: SingleChildScrollView(
-          child: SizedBox(
-            height: Get.size.height,
-            child: Column(
-              //mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                GestureDetector(
-                    onTap: () {
-                      controller.showSelectImage(context);
-                    },
-                    child: Obx(
-                      () => controller.base64Image.value != ''
-                          ? Container(
-                              width: 200,
-                              height: 200,
-                              decoration: BoxDecoration(
-                                shape: BoxShape.circle,
-                                image: DecorationImage(
-                                  image: MemoryImage(
-                                    base64Decode(controller.base64Image.value),
-                                  ),
-                                  fit: BoxFit.fill,
-                                ),
-                              ),
-                              child: Stack(
-                                children: [
-                                  Positioned(
-                                    bottom: 8,
-                                    right: 8,
-                                    child: Container(
-                                      decoration: BoxDecoration(
-                                        shape: BoxShape.circle,
-                                        color: Get.theme.colorScheme.primary,
-                                      ),
-                                      child: IconButton(
-                                        icon: const Icon(Icons.edit, color: Colors.white),
-                                        onPressed: () {
-                                          // Lógica para ação do botão de câmera
-                                          controller.showSelectImage(context);
-                                        },
-                                      ),
-                                    ),
-                                  )
-                                ],
-                              ),
-                            )
-                          : Container(
-                              width: 200,
-                              height: 200,
-                              decoration: BoxDecoration(
-                                shape: BoxShape.circle,
-                                color: Get.theme.colorScheme.onPrimaryContainer,
-                              ),
-                              child: Stack(
-                                children: [
-                                  const Center(
-                                    child: Text(
-                                      'Adicionar imagem',
-                                      style: TextStyle(color: Colors.white),
-                                    ),
-                                  ),
-                                  Positioned(
-                                    bottom: 8,
-                                    right: 8,
-                                    child: Container(
-                                      decoration: BoxDecoration(
-                                        shape: BoxShape.circle,
-                                        color: Get.theme.colorScheme.primary,
-                                      ),
-                                      child: IconButton(
-                                        icon: const Icon(Icons.camera_alt_outlined, color: Colors.white),
-                                        onPressed: () {
-                                          // Lógica para ação do botão de câmera
-                                          controller.showSelectImage(context);
-                                        },
-                                      ),
-                                    ),
-                                  ),
-                                ],
-                              ),
-                            ),
-                    )),
-                const SizedBox(height: 20),
-                Expanded(
-                    child: MenuForm(
-                  controller: controller,
-                )),
-              ],
-            ),
+      backgroundColor: Theme.of(context).colorScheme.tertiaryContainer,
+      body: Container(
+        width: double.infinity,
+        decoration: const BoxDecoration(
+          color: Colors.white,
+          borderRadius: BorderRadius.only(
+            topLeft: Radius.circular(25),
+            topRight: Radius.circular(25),
+            bottomLeft: Radius.zero,
+            bottomRight: Radius.zero,
+          ),
+        ),
+        child: Padding(
+          padding: const EdgeInsets.only(top: 30.0, left: 16.0, right: 16.0, bottom: 16),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text(
+                'Nome',
+                style: Theme.of(context).textTheme.titleLarge!.copyWith(fontWeight: FontWeight.bold),
+              ),
+              const SizedBox(height: 10),
+              CustomTextField(txtController: controller.nomeRefeicao),
+              const SizedBox(height: 30),
+              Text(
+                'Descrição',
+                style: Theme.of(context).textTheme.titleLarge!.copyWith(fontWeight: FontWeight.bold),
+              ),
+              const SizedBox(height: 10),
+              CustomTextField(
+                txtController: controller.descricaoRefeicao,
+                maxLines: 5,
+              ),
+              const SizedBox(height: 30),
+              Row(
+                //mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: [
+                  Expanded(
+                    child: Align(
+                      alignment: Alignment.centerLeft,
+                      child: Text(
+                        'Data',
+                        style: Theme.of(context).textTheme.titleLarge!.copyWith(fontWeight: FontWeight.bold),
+                      ),
+                    ),
+                  ),
+                  const SizedBox(width: 15),
+                  Expanded(
+                    child: Align(
+                      alignment: Alignment.centerLeft,
+                      child: Text(
+                        'Hora',
+                        style: Theme.of(context).textTheme.titleLarge!.copyWith(fontWeight: FontWeight.bold),
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+              const SizedBox(height: 10),
+              Row(
+                children: [
+                  Expanded(flex: 1, child: CustomTextField(txtController: controller.nomeRefeicao)),
+                  const SizedBox(width: 15),
+                  Expanded(flex: 1, child: CustomTextField(txtController: controller.nomeRefeicao)),
+                ],
+              ),
+              const SizedBox(height: 30),
+              Text(
+                'Está dentro da dieta?',
+                style: Theme.of(context).textTheme.titleLarge!.copyWith(fontWeight: FontWeight.bold),
+              ),
+              const SizedBox(height: 10),
+            ],
           ),
         ),
       ),
@@ -241,3 +225,127 @@ class MyCustomTextField extends StatelessWidget {
     );
   }
 }
+
+
+
+/**
+ * 
+ * Scaffold(
+      appBar: AppBar(
+        // leading: ,
+        backgroundColor: Theme.of(context).colorScheme.tertiaryContainer,
+
+        title: Text(
+          'Editar Refeição',
+          style: Theme.of(context).textTheme.titleLarge?.copyWith(
+                color: Theme.of(context).colorScheme.onPrimary,
+              ),
+        ),
+        centerTitle: true,
+        actions: [
+          Obx(() => IconButton(
+                icon:
+                    Icon(controller.editRefPage.value == true ? Icons.save_outlined : Icons.edit, color: Colors.white),
+                onPressed: () {
+                  // Lógica para ação do botão de câmera
+                  controller.enableEditPage();
+                },
+              ))
+        ],
+      ),
+      body: Padding(
+        padding: const EdgeInsets.all(8.0),
+        child: SingleChildScrollView(
+          child: SizedBox(
+            height: Get.size.height,
+            child: Column(
+              //mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                GestureDetector(
+                    onTap: () {
+                      controller.showSelectImage(context);
+                    },
+                    child: Obx(
+                      () => controller.base64Image.value != ''
+                          ? Container(
+                              width: 200,
+                              height: 200,
+                              decoration: BoxDecoration(
+                                shape: BoxShape.circle,
+                                image: DecorationImage(
+                                  image: MemoryImage(
+                                    base64Decode(controller.base64Image.value),
+                                  ),
+                                  fit: BoxFit.fill,
+                                ),
+                              ),
+                              child: Stack(
+                                children: [
+                                  Positioned(
+                                    bottom: 8,
+                                    right: 8,
+                                    child: Container(
+                                      decoration: BoxDecoration(
+                                        shape: BoxShape.circle,
+                                        color: Get.theme.colorScheme.primary,
+                                      ),
+                                      child: IconButton(
+                                        icon: const Icon(Icons.edit, color: Colors.white),
+                                        onPressed: () {
+                                          // Lógica para ação do botão de câmera
+                                          controller.showSelectImage(context);
+                                        },
+                                      ),
+                                    ),
+                                  )
+                                ],
+                              ),
+                            )
+                          : Container(
+                              width: 200,
+                              height: 200,
+                              decoration: BoxDecoration(
+                                shape: BoxShape.circle,
+                                color: Get.theme.colorScheme.onPrimaryContainer,
+                              ),
+                              child: Stack(
+                                children: [
+                                  const Center(
+                                    child: Text(
+                                      'Adicionar imagem',
+                                      style: TextStyle(color: Colors.white),
+                                    ),
+                                  ),
+                                  Positioned(
+                                    bottom: 8,
+                                    right: 8,
+                                    child: Container(
+                                      decoration: BoxDecoration(
+                                        shape: BoxShape.circle,
+                                        color: Get.theme.colorScheme.primary,
+                                      ),
+                                      child: IconButton(
+                                        icon: const Icon(Icons.camera_alt_outlined, color: Colors.white),
+                                        onPressed: () {
+                                          // Lógica para ação do botão de câmera
+                                          controller.showSelectImage(context);
+                                        },
+                                      ),
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ),
+                    )),
+                const SizedBox(height: 20),
+                Expanded(
+                    child: MenuForm(
+                  controller: controller,
+                )),
+              ],
+            ),
+          ),
+        ),
+      ),
+    );
+ */
