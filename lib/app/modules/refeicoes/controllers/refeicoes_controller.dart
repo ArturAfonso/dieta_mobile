@@ -17,6 +17,7 @@ class RefeicoesController extends GetxController {
   //editar refeição page
   TextEditingController nomeRefeicao = TextEditingController();
   TextEditingController descricaoRefeicao = TextEditingController();
+  RxBool isInDiet = false.obs;
 
   @override
   void onInit() {

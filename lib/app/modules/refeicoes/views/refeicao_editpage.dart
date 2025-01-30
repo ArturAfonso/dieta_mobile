@@ -1,5 +1,6 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 
+import 'package:dieta_mobile/app/data/shared/custom_button.dart';
 import 'package:dieta_mobile/app/data/shared/widgets/custom_text_field.dart';
 import 'package:dieta_mobile/app/modules/refeicoes/widgets/alimento_tile.dart';
 import 'package:flutter/material.dart';
@@ -36,6 +37,7 @@ class RefeicaoEditpage extends GetView<RefeicoesController> {
       ),
       backgroundColor: Theme.of(context).colorScheme.tertiaryContainer,
       body: Container(
+        height: Get.size.height,
         width: double.infinity,
         decoration: const BoxDecoration(
           color: Colors.white,
@@ -48,65 +50,167 @@ class RefeicaoEditpage extends GetView<RefeicoesController> {
         ),
         child: Padding(
           padding: const EdgeInsets.only(top: 30.0, left: 16.0, right: 16.0, bottom: 16),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Text(
-                'Nome',
-                style: Theme.of(context).textTheme.titleLarge!.copyWith(fontWeight: FontWeight.bold),
-              ),
-              const SizedBox(height: 10),
-              CustomTextField(txtController: controller.nomeRefeicao),
-              const SizedBox(height: 30),
-              Text(
-                'Descrição',
-                style: Theme.of(context).textTheme.titleLarge!.copyWith(fontWeight: FontWeight.bold),
-              ),
-              const SizedBox(height: 10),
-              CustomTextField(
-                txtController: controller.descricaoRefeicao,
-                maxLines: 5,
-              ),
-              const SizedBox(height: 30),
-              Row(
-                //mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                children: [
-                  Expanded(
-                    child: Align(
-                      alignment: Alignment.centerLeft,
-                      child: Text(
-                        'Data',
-                        style: Theme.of(context).textTheme.titleLarge!.copyWith(fontWeight: FontWeight.bold),
+          child: SingleChildScrollView(
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  'Nome',
+                  style: Theme.of(context).textTheme.titleLarge!.copyWith(fontWeight: FontWeight.bold),
+                ),
+                const SizedBox(height: 10),
+                CustomTextField(txtController: controller.nomeRefeicao),
+                const SizedBox(height: 30),
+                Text(
+                  'Descrição',
+                  style: Theme.of(context).textTheme.titleLarge!.copyWith(fontWeight: FontWeight.bold),
+                ),
+                const SizedBox(height: 10),
+                CustomTextField(
+                  txtController: controller.descricaoRefeicao,
+                  maxLines: 5,
+                ),
+                const SizedBox(height: 30),
+                Row(
+                  //mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  children: [
+                    Expanded(
+                      child: Align(
+                        alignment: Alignment.centerLeft,
+                        child: Text(
+                          'Data',
+                          style: Theme.of(context).textTheme.titleLarge!.copyWith(fontWeight: FontWeight.bold),
+                        ),
                       ),
                     ),
-                  ),
-                  const SizedBox(width: 15),
-                  Expanded(
-                    child: Align(
-                      alignment: Alignment.centerLeft,
-                      child: Text(
-                        'Hora',
-                        style: Theme.of(context).textTheme.titleLarge!.copyWith(fontWeight: FontWeight.bold),
+                    const SizedBox(width: 15),
+                    Expanded(
+                      child: Align(
+                        alignment: Alignment.centerLeft,
+                        child: Text(
+                          'Hora',
+                          style: Theme.of(context).textTheme.titleLarge!.copyWith(fontWeight: FontWeight.bold),
+                        ),
                       ),
                     ),
+                  ],
+                ),
+                const SizedBox(height: 10),
+                Row(
+                  children: [
+                    Expanded(flex: 1, child: CustomTextField(txtController: controller.nomeRefeicao)),
+                    const SizedBox(width: 15),
+                    Expanded(flex: 1, child: CustomTextField(txtController: controller.nomeRefeicao)),
+                  ],
+                ),
+                const SizedBox(height: 30),
+                Text(
+                  'Está dentro da dieta?',
+                  style: Theme.of(context).textTheme.titleLarge!.copyWith(fontWeight: FontWeight.bold),
+                ),
+                const SizedBox(height: 10),
+                Row(
+                  children: [
+                    Expanded(
+                      child: Obx(() => SizedBox(
+                            width: double.infinity,
+                            height: 50,
+                            child: ElevatedButton(
+                              style: ElevatedButton.styleFrom(
+                                backgroundColor: controller.isInDiet.value
+                                    ? Theme.of(context).colorScheme.secondaryContainer
+                                    : Theme.of(context).colorScheme.onInverseSurface,
+                                shape: RoundedRectangleBorder(
+                                  side: BorderSide(
+                                    color: controller.isInDiet.value
+                                        ? Theme.of(context).colorScheme.secondary
+                                        : Theme.of(context).colorScheme.onInverseSurface,
+                                  ),
+                                  borderRadius: const BorderRadius.all(Radius.circular(8.0)),
+                                ),
+                              ),
+                              onPressed: () {
+                                controller.isInDiet.value = !controller.isInDiet.value;
+                              },
+                              child: Row(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  Icon(
+                                    Icons.circle,
+                                    color: Theme.of(context).colorScheme.secondary,
+                                    size: 16,
+                                  ),
+                                  const SizedBox(width: 8),
+                                  Text(
+                                    "Sim",
+                                    style: Theme.of(context).textTheme.titleLarge?.copyWith(
+                                          color: Theme.of(context).colorScheme.onSurface,
+                                        ),
+                                  ),
+                                ],
+                              ),
+                            ),
+                          )),
+                    ),
+                    const SizedBox(width: 15),
+                    Expanded(
+                      child: Obx(() => SizedBox(
+                            width: double.infinity,
+                            height: 50,
+                            child: ElevatedButton(
+                              style: ElevatedButton.styleFrom(
+                                backgroundColor: !controller.isInDiet.value
+                                    ? Theme.of(context).colorScheme.primaryContainer
+                                    : Theme.of(context).colorScheme.onInverseSurface,
+                                shape: RoundedRectangleBorder(
+                                  side: BorderSide(
+                                    color: !controller.isInDiet.value
+                                        ? Theme.of(context).colorScheme.primary
+                                        : Theme.of(context).colorScheme.onInverseSurface,
+                                  ),
+                                  borderRadius: const BorderRadius.all(Radius.circular(8.0)),
+                                ),
+                              ),
+                              onPressed: () {
+                                controller.isInDiet.value = !controller.isInDiet.value;
+                              },
+                              child: Row(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  Icon(
+                                    Icons.circle,
+                                    color: Theme.of(context).colorScheme.primary,
+                                    size: 16,
+                                  ),
+                                  const SizedBox(width: 8),
+                                  Text(
+                                    "Não",
+                                    style: Theme.of(context).textTheme.titleLarge?.copyWith(
+                                          color: Theme.of(context).colorScheme.onSurface,
+                                        ),
+                                  ),
+                                ],
+                              ),
+                            ),
+                          )),
+                    ),
+                  ],
+                ),
+                const SizedBox(
+                  height: 50,
+                ),
+                Padding(
+                  padding: const EdgeInsets.only(bottom: 18.0),
+                  child: CustomButton(
+                    text: 'Cadastrar refeição',
+                    onPressed: () {
+                      //  controller.saveRefeicao();
+                    },
                   ),
-                ],
-              ),
-              const SizedBox(height: 10),
-              Row(
-                children: [
-                  Expanded(flex: 1, child: CustomTextField(txtController: controller.nomeRefeicao)),
-                  const SizedBox(width: 15),
-                  Expanded(flex: 1, child: CustomTextField(txtController: controller.nomeRefeicao)),
-                ],
-              ),
-              const SizedBox(height: 30),
-              Text(
-                'Está dentro da dieta?',
-                style: Theme.of(context).textTheme.titleLarge!.copyWith(fontWeight: FontWeight.bold),
-              ),
-              const SizedBox(height: 10),
-            ],
+                ),
+              ],
+            ),
           ),
         ),
       ),
