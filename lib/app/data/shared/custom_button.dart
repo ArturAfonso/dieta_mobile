@@ -14,7 +14,7 @@ class CustomButton extends StatelessWidget {
     this.width = double.infinity,
     this.height = 50.0,
     this.onPressed,
-    this.text = '+ Nova refeição',
+    required this.text,
     this.textStyle,
     this.borderRadius = const BorderRadius.all(Radius.circular(8.0)),
     this.backgroundColor,

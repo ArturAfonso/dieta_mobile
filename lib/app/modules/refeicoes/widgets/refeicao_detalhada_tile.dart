@@ -14,7 +14,8 @@ class RefeicaoDetalhadaTile extends StatelessWidget {
   Widget build(BuildContext context) {
     return InkWell(
       onTap: () {
-        Get.toNamed(Routes.REFEICAOEDIT);
+        // Get.toNamed(Routes.REFEICAOEDIT);
+        Get.toNamed(Routes.REFEICOES);
       },
       child: Card(
         child: SizedBox(

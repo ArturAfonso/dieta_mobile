@@ -6,6 +6,7 @@ import 'package:phosphor_flutter/phosphor_flutter.dart';
 import '../../../data/shared/custom_button.dart';
 import '../../refeicoes/widgets/refeicao_detalhada_tile.dart';
 import '../controllers/home_controller.dart';
+import '../widgets/custom_appbar_home.dart';
 
 class HomeView extends GetView<HomeController> {
   const HomeView({Key? key}) : super(key: key);
@@ -88,12 +89,17 @@ class HomeView extends GetView<HomeController> {
               const SizedBox(
                 height: 10,
               ),
-              const CustomButton(),
+              const CustomButton(
+                text: '+ Nova refeição',
+              ),
+              const SizedBox(height: 10),
               Expanded(
                 child: ListView.builder(
                   itemCount: controller.refeicoes.length,
                   itemBuilder: (context, index) {
                     return RefeicaoDetalhadaTile(index: index);
+
+                    // return RefeicaoResumidaTile();
                   },
                 ),
               ),
@@ -127,62 +133,4 @@ class HomeView extends GetView<HomeController> {
       bottomNavigationBar: BottomBarHome(controller: controller),
     );
   } */
-}
-
-class CustomAppBarHome extends StatelessWidget {
-  const CustomAppBarHome({
-    super.key,
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      color: Theme.of(context).appBarTheme.backgroundColor,
-      child: SafeArea(
-        child: Container(
-          margin: const EdgeInsets.only(top: 16.0, left: 16.0, right: 16.0, bottom: 16),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Container(
-                child: Row(
-                  children: [
-                    const Icon(
-                      PhosphorIcons.forkKnife,
-                      size: 55.0,
-                      weight: 500,
-                      semanticLabel: 'Logo do app',
-                    ),
-                    Column(
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      mainAxisSize: MainAxisSize.min,
-                      children: const [
-                        Text(
-                          'Dieta',
-                          style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
-                        ),
-                        Text(
-                          'Mobile',
-                          style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
-                        ),
-                      ],
-                    )
-                  ],
-                ),
-              ),
-              const Hero(
-                tag: 'user-avatar',
-                child: CircleAvatar(
-                  radius: 30,
-                  backgroundImage: NetworkImage(
-                      'https://img.freepik.com/fotos-gratis/retrato-de-homem-branco-isolado_53876-40306.jpg'),
-                ),
-              ),
-            ],
-          ),
-        ),
-      ),
-    );
-  }
 }

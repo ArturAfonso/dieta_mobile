@@ -1,37 +1,242 @@
-// ignore_for_file: unused_local_variable
+// ignore_for_file: public_member_api_docs, sort_constructors_first
 
-import 'package:dieta_mobile/app/modules/refeicoes/widgets/refeicao_detalhada_tile.dart';
+import 'package:dieta_mobile/app/data/shared/custom_button.dart';
+import 'package:dieta_mobile/app/modules/refeicoes/widgets/alimento_tile.dart';
 import 'package:flutter/material.dart';
-
 import 'package:get/get.dart';
 
-import '../controllers/refeicoes_controller.dart';
+import 'package:dieta_mobile/app/modules/refeicoes/controllers/refeicoes_controller.dart';
 
 class RefeicoesView extends GetView<RefeicoesController> {
-  const RefeicoesView({Key? key}) : super(key: key);
+  const RefeicoesView({super.key});
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: AppBar(
-          backgroundColor: Theme.of(context).primaryColor,
-          title: const Text(
-            'Refeições',
-            // style: TextStyle(color: Colors.white),
-          ),
-          centerTitle: true,
+      appBar: AppBar(
+        leading: IconButton(
+          icon: Icon(Icons.arrow_back, color: Theme.of(context).textTheme.titleLarge!.color),
+          onPressed: () {
+            Navigator.of(context).pop();
+          },
         ),
-        body: ListView.separated(
-          itemCount: 10,
-          itemBuilder: (BuildContext context, int index) {
-            return RefeicaoDetalhadaTile(index: index);
-          },
-          separatorBuilder: (BuildContext context, int index) {
-            return Divider(
-              height: 3,
-              thickness: 1,
-              color: Colors.grey[300],
-            );
-          },
-        ));
+        backgroundColor: Theme.of(context).colorScheme.errorContainer,
+        title: Text(
+          'Refeição',
+          style: Theme.of(context).textTheme.titleLarge!.copyWith(fontWeight: FontWeight.bold),
+        ),
+        centerTitle: true,
+        actions: [
+          Obx(() => IconButton(
+                icon:
+                    Icon(controller.editRefPage.value == true ? Icons.save_outlined : Icons.edit, color: Colors.white),
+                onPressed: () {
+                  // Lógica para ação do botão de câmera
+                  controller.enableEditPage();
+                },
+              ))
+        ],
+        elevation: 0,
+      ),
+      backgroundColor: Theme.of(context).colorScheme.errorContainer,
+      body: Container(
+        height: Get.size.height,
+        width: double.infinity,
+        decoration: const BoxDecoration(
+          color: Colors.white,
+          borderRadius: BorderRadius.only(
+            topLeft: Radius.circular(25),
+            topRight: Radius.circular(25),
+            bottomLeft: Radius.zero,
+            bottomRight: Radius.zero,
+          ),
+        ),
+        child: Padding(
+          padding: const EdgeInsets.only(top: 30.0, left: 16.0, right: 16.0, bottom: 16),
+          child: SingleChildScrollView(
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  'X-tudo',
+                  style: Theme.of(context).textTheme.titleLarge!.copyWith(fontWeight: FontWeight.bold),
+                ),
+                const SizedBox(height: 10),
+                Text(
+                  'Xis completo da lancheria do bairro',
+                  style: Theme.of(context).textTheme.bodyLarge!,
+                ),
+                const SizedBox(height: 40),
+                Text(
+                  'Data e hora',
+                  style: Theme.of(context).textTheme.bodyLarge!.copyWith(fontWeight: FontWeight.bold),
+                ),
+                const SizedBox(height: 10),
+                Text(
+                  '12/08/2022 às 20:00',
+                  style: Theme.of(context).textTheme.bodyLarge!,
+                ),
+                const SizedBox(height: 30),
+                Container(
+                  decoration: BoxDecoration(
+                    color: Theme.of(context).colorScheme.onInverseSurface,
+                    borderRadius: const BorderRadius.all(Radius.circular(25.0)),
+                    border: Border.all(
+                      color: Theme.of(context).colorScheme.onInverseSurface,
+                    ),
+                  ),
+                  child: Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 10.0, vertical: 5.0),
+                    child: Row(
+                      mainAxisSize: MainAxisSize.min,
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Icon(
+                          Icons.circle,
+                          color: Theme.of(context).colorScheme.primary,
+                          size: 16,
+                        ),
+                        const SizedBox(width: 8),
+                        Text(
+                          "Fora da dieta",
+                          style: Theme.of(context).textTheme.bodyMedium?.copyWith(
+                                color: Theme.of(context).colorScheme.onSurface,
+                              ),
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
+                const SizedBox(
+                  height: 50,
+                ),
+                Padding(
+                  padding: const EdgeInsets.only(bottom: 18.0),
+                  child: CustomButton(
+                    text: 'Editar refeição',
+                    onPressed: () {
+                      //  controller.saveRefeicao();
+                    },
+                  ),
+                ),
+              ],
+            ),
+          ),
+        ),
+      ),
+    );
+  }
+}
+
+class MenuForm extends StatelessWidget {
+  const MenuForm({super.key, required this.controller});
+  final RefeicoesController controller;
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        const Text(
+          'Título',
+          style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+        ),
+        const SizedBox(height: 10),
+        Obx(() => MyCustomTextField(
+              hintText: 'Nome da Refeição',
+              editable: controller.editRefPage.value,
+            )),
+        const SizedBox(height: 20),
+        const Divider(
+          color: Color(0xFFDADADA),
+        ),
+        const SizedBox(height: 20),
+        const Text(
+          'Itens da Refeição',
+          style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+        ),
+        const SizedBox(height: 10),
+        Flexible(
+          child: GetBuilder<RefeicoesController>(
+            init: controller,
+            initState: (_) {},
+            builder: (_) {
+              return ListView.separated(
+                itemCount: controller.listAlimentos.length,
+                itemBuilder: (BuildContext context, int index) {
+                  final item = controller.listAlimentos[index];
+                  return Dismissible(
+                    direction:
+                        controller.editRefPage.value == true ? DismissDirection.horizontal : DismissDirection.none,
+                    key: ObjectKey(controller.listAlimentos[index]),
+                    onDismissed: (d) {
+                      controller.listAlimentos.removeAt(index);
+                      controller.update();
+                      //Text(' dismissed')
+                      controller.showSnackbar(context);
+                    },
+                    child: AlimentoTile(
+                      index: index,
+                      alimento: controller.listAlimentos[index],
+                    ),
+                  );
+                },
+                separatorBuilder: (BuildContext context, int index) {
+                  return Divider(
+                    height: 3,
+                    thickness: 1,
+                    color: Colors.grey[300],
+                  );
+                },
+              );
+            },
+          ),
+        ),
+      ],
+    );
+  }
+
+  @override
+  State<StatefulWidget> createState() {
+    // TODO: implement createState
+    throw UnimplementedError();
+  }
+}
+
+class MyCustomTextField extends StatelessWidget {
+  Icon? prefixIcon;
+  Icon? sufixIcon;
+  String? hintText;
+  bool? editable;
+  MyCustomTextField({
+    Key? key,
+    this.prefixIcon,
+    this.sufixIcon,
+    this.hintText,
+    this.editable,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return TextFormField(
+      enabled: editable,
+      style: const TextStyle(
+        color: Colors.orange,
+      ), // Cor do texto digitado (laranja)
+      decoration: InputDecoration(
+        filled: true,
+        fillColor: const Color(0xFFDADADA).withOpacity(0.4), // Cor do fundo (cinza)
+        border: const OutlineInputBorder(
+          borderSide: BorderSide.none,
+          borderRadius: BorderRadius.zero,
+        ),
+        prefixIcon: prefixIcon, // Ícone à esquerda
+        suffixIcon: sufixIcon, // Ícone à direita
+
+        hintText: hintText,
+        hintStyle: TextStyle(color: Get.theme.colorScheme.secondary),
+        prefixStyle: TextStyle(color: Colors.grey[600]), // Cor do texto fixo (cinza escuro)
+      ),
+    );
   }
 }
