@@ -7,6 +7,8 @@ import 'package:dieta_mobile/app/data/models/alimento_model.dart';
 class RefeicaoModel {
 /*
 {
+  "naDieta": true,
+  "titulo": "titulo",
   "descricao": "nome",
   "proteinas": 1,
   "carboidratos": 2.3,
@@ -20,31 +22,43 @@ class RefeicaoModel {
       "gorduras": 2.3,
       "calorias": 5.2
     }
-  ]
+  ],
+  "data": "2023-10-10T00:00:00.000Z",
+  "diaDaSemana": "Segunda-feira"
 } 
 */
-
+  bool naDieta;
+  String titulo;
   String? descricao;
-  double? proteinas;
-  double? carboidratos;
-  double? gorduras;
-  double? calorias;
+  // double? proteinas;
+  // double? carboidratos;
+  //double? gorduras;
+  // double? calorias;
   List<AlimentoModel?>? alimentos;
+  DateTime? data;
+  String? diaDaSemana;
 
   RefeicaoModel({
+    required this.naDieta,
+    required this.titulo,
     this.descricao,
-    this.proteinas,
+    /*  this.proteinas,
     this.carboidratos,
     this.gorduras,
-    this.calorias,
+    this.calorias, */
     this.alimentos,
+    this.data,
+    this.diaDaSemana,
   });
-  RefeicaoModel.fromJson(Map<String, dynamic> json) {
+
+  RefeicaoModel.fromJson(Map<String, dynamic> json)
+      : naDieta = json['naDieta'],
+        titulo = json['titulo']?.toString() ?? '' {
     descricao = json['descricao']?.toString();
-    proteinas = json['proteinas']?.toInt();
+    /*    proteinas = json['proteinas']?.toDouble();
     carboidratos = json['carboidratos']?.toDouble();
     gorduras = json['gorduras']?.toDouble();
-    calorias = json['calorias']?.toDouble();
+    calorias = json['calorias']?.toDouble(); */
     if (json['alimentos'] != null) {
       final v = json['alimentos'];
       final arr0 = <AlimentoModel>[];
@@ -53,14 +67,19 @@ class RefeicaoModel {
       });
       alimentos = arr0;
     }
+    data = json['data'] != null ? DateTime.parse(json['data']) : null;
+    diaDaSemana = json['diaDaSemana']?.toString();
   }
+
   Map<String, dynamic> toJson() {
     final data = <String, dynamic>{};
+    data['naDieta'] = naDieta;
+    data['titulo'] = titulo;
     data['descricao'] = descricao;
-    data['proteinas'] = proteinas;
+    /*  data['proteinas'] = proteinas;
     data['carboidratos'] = carboidratos;
     data['gorduras'] = gorduras;
-    data['calorias'] = calorias;
+    data['calorias'] = calorias; */
     if (alimentos != null) {
       final v = alimentos;
       final arr0 = [];
@@ -69,6 +88,8 @@ class RefeicaoModel {
       }
       data['alimentos'] = arr0;
     }
+    data['data'] = this.data?.toIso8601String();
+    data['diaDaSemana'] = diaDaSemana;
     return data;
   }
 

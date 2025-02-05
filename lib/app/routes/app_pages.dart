@@ -1,10 +1,11 @@
-import 'package:dieta_mobile/app/modules/refeicoes/views/refeicao_editpage.dart';
 import 'package:get/get.dart';
 
 import '../modules/alimentos/bindings/alimentos_binding.dart';
 import '../modules/alimentos/views/alimentos_view.dart';
 import '../modules/auth/bindings/auth_binding.dart';
 import '../modules/auth/views/auth_view.dart';
+import '../modules/cadastrar_refeicao/bindings/cadastrar_refeicao_binding.dart';
+import '../modules/cadastrar_refeicao/views/cadastrar_refeicao_view.dart';
 import '../modules/home/bindings/home_binding.dart';
 import '../modules/home/views/home_view.dart';
 import '../modules/informacoes/bindings/informacoes_binding.dart';
@@ -12,6 +13,7 @@ import '../modules/informacoes/views/informacoes_view.dart';
 import '../modules/metas/bindings/metas_binding.dart';
 import '../modules/metas/views/metas_view.dart';
 import '../modules/refeicoes/bindings/refeicoes_binding.dart';
+import '../modules/refeicoes/views/refeicao_editpage.dart';
 import '../modules/refeicoes/views/refeicoes_view.dart';
 
 // ignore_for_file: constant_identifier_names
@@ -26,7 +28,7 @@ class AppPages {
   static final routes = [
     GetPage(
       name: _Paths.HOME,
-      page: () => const HomeView(),
+      page: () => HomeView(),
       binding: HomeBinding(),
     ),
     GetPage(
@@ -59,6 +61,11 @@ class AppPages {
       name: _Paths.AUTH,
       page: () => const AuthView(),
       binding: AuthBinding(),
+    ),
+    GetPage(
+      name: _Paths.CADASTRAR_REFEICAO,
+      page: () => const CadastrarRefeicaoView(),
+      binding: CadastrarRefeicaoBinding(),
     ),
   ];
 }

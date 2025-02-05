@@ -5,6 +5,7 @@ import 'package:google_fonts/google_fonts.dart';
 part 'color_schemes.g.dart';
 
 ThemeData get lightTheme => ThemeData(
+      dialogBackgroundColor: Colors.white,
       elevatedButtonTheme: ElevatedButtonThemeData(
         style: ButtonStyle(
           backgroundColor: MaterialStateProperty.resolveWith<Color>((states) {

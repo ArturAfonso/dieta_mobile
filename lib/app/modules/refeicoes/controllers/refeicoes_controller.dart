@@ -21,7 +21,7 @@ class RefeicoesController extends GetxController {
 
   @override
   void onInit() {
-    listAlimentos.addAll(
+    /*  listAlimentos.addAll(
       [
         AlimentoModel(descricao: "aveia", calorias: 40, carboidratos: 50, gorduras: 10, proteinas: 5),
         AlimentoModel(
@@ -59,7 +59,7 @@ class RefeicoesController extends GetxController {
       RefeicaoModel(calorias: 20),
       RefeicaoModel(calorias: 15),
       RefeicaoModel(calorias: 32)
-    ]);
+    ]); */
 
     super.onInit();
   }

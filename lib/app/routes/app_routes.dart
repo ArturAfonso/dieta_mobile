@@ -12,6 +12,7 @@ abstract class Routes {
   static const INFORMACOES = _Paths.INFORMACOES;
   static const METAS = _Paths.METAS;
   static const AUTH = _Paths.AUTH;
+  static const CADASTRAR_REFEICAO = _Paths.CADASTRAR_REFEICAO;
 }
 
 abstract class _Paths {
@@ -23,4 +24,5 @@ abstract class _Paths {
   static const INFORMACOES = '/informacoes';
   static const METAS = '/metas';
   static const AUTH = '/auth';
+  static const CADASTRAR_REFEICAO = '/cadastrar-refeicao';
 }

@@ -1,7 +1,5 @@
 // ignore_for_file: avoid_print
 
-import 'package:dieta_mobile/app/data/models/alimento_model.dart';
-import 'package:dieta_mobile/app/data/models/refeicao_model.dart';
 import 'package:dieta_mobile/app/data/shared/dieta_utils.dart';
 import 'package:dieta_mobile/app/modules/auth/controllers/auth_controller.dart';
 import 'package:dieta_mobile/app/modules/informacoes/controllers/saveinfo_controller.dart';
@@ -18,11 +16,11 @@ class HomeController extends GetxController {
   RxBool bottonNavIsloading = false.obs;
   PageController pageController = PageController(initialPage: 0);
 
-  RefeicaoModel refeicao = RefeicaoModel(alimentos: [
+/*   RefeicaoModel refeicao = RefeicaoModel(alimentos: [
     AlimentoModel(descricao: "pao", calorias: 1, carboidratos: 2, gorduras: 3, proteinas: 4),
     AlimentoModel(descricao: "maça", calorias: 1, carboidratos: 2, gorduras: 3, proteinas: 4),
     AlimentoModel(descricao: "queijo", calorias: 1, carboidratos: 2, gorduras: 3, proteinas: 4)
-  ]);
+  ], naDieta: true, titulo: ''); */
 
   List<GlobalKey<FormState>> formKeys = [GlobalKey<FormState>(), GlobalKey<FormState>(), GlobalKey<FormState>()];
   @override
@@ -45,10 +43,10 @@ class HomeController extends GetxController {
     print("Refeições gordura grama kilo: ${DietaUtils.gorduraGramaKilo([refeicao])}"); */
     DietaUtils.calcularGCD(intensidade: 'Sedentário', altura: 173, idade: 30, peso: 100, sexo: "H");
 
-    print(DietaUtils.metaProteina(meta: 1.6, peso: 100));
+    /*  print(DietaUtils.metaProteina(meta: 1.6, peso: 100));
     print(DietaUtils.proteinaAlcancadaMenosMetaProteina(
         meta: DietaUtils.metaProteina(meta: 1.6, peso: 100),
-        alcancado: DietaUtils.proteinaGeral([refeicao, refeicao, refeicao])));
+        alcancado: DietaUtils.proteinaGeral([refeicao, refeicao, refeicao]))); */
   }
 
   void changePage({required int page}) async {
@@ -75,7 +73,7 @@ class HomeController extends GetxController {
     }
   }
 
-  final List<RefeicaoModel> refeicoes = List.generate(
+/*   final List<RefeicaoModel> refeicoes = List.generate(
     15,
     (index) => RefeicaoModel(
       descricao: 'Refeição $index',
@@ -85,5 +83,5 @@ class HomeController extends GetxController {
       calorias: 200.0,
       alimentos: [],
     ),
-  );
+  ); */
 }

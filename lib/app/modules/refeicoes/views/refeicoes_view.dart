@@ -1,5 +1,6 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 
+import 'package:dieta_mobile/app/data/shared/app_utils.dart';
 import 'package:dieta_mobile/app/data/shared/custom_button.dart';
 import 'package:dieta_mobile/app/modules/refeicoes/widgets/alimento_tile.dart';
 import 'package:flutter/material.dart';
@@ -7,11 +8,16 @@ import 'package:get/get.dart';
 
 import 'package:dieta_mobile/app/modules/refeicoes/controllers/refeicoes_controller.dart';
 
+import '../../../data/models/refeicao_model.dart';
+import '../../../routes/app_pages.dart';
+
 class RefeicoesView extends GetView<RefeicoesController> {
   const RefeicoesView({super.key});
 
   @override
   Widget build(BuildContext context) {
+    final RefeicaoModel refeicao = Get.arguments as RefeicaoModel;
+
     return Scaffold(
       appBar: AppBar(
         leading: IconButton(
@@ -26,16 +32,6 @@ class RefeicoesView extends GetView<RefeicoesController> {
           style: Theme.of(context).textTheme.titleLarge!.copyWith(fontWeight: FontWeight.bold),
         ),
         centerTitle: true,
-        actions: [
-          Obx(() => IconButton(
-                icon:
-                    Icon(controller.editRefPage.value == true ? Icons.save_outlined : Icons.edit, color: Colors.white),
-                onPressed: () {
-                  // Lógica para ação do botão de câmera
-                  controller.enableEditPage();
-                },
-              ))
-        ],
         elevation: 0,
       ),
       backgroundColor: Theme.of(context).colorScheme.errorContainer,
@@ -59,12 +55,12 @@ class RefeicoesView extends GetView<RefeicoesController> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  'X-tudo',
+                  refeicao.titulo ?? "Sem título",
                   style: Theme.of(context).textTheme.titleLarge!.copyWith(fontWeight: FontWeight.bold),
                 ),
                 const SizedBox(height: 10),
                 Text(
-                  'Xis completo da lancheria do bairro',
+                  refeicao.descricao ?? "Sem descrição",
                   style: Theme.of(context).textTheme.bodyLarge!,
                 ),
                 const SizedBox(height: 40),
@@ -74,7 +70,7 @@ class RefeicoesView extends GetView<RefeicoesController> {
                 ),
                 const SizedBox(height: 10),
                 Text(
-                  '12/08/2022 às 20:00',
+                  AppUtils.alternativeFormattedDate(refeicao.data!),
                   style: Theme.of(context).textTheme.bodyLarge!,
                 ),
                 const SizedBox(height: 30),
@@ -94,12 +90,14 @@ class RefeicoesView extends GetView<RefeicoesController> {
                       children: [
                         Icon(
                           Icons.circle,
-                          color: Theme.of(context).colorScheme.primary,
+                          color: refeicao.naDieta
+                              ? Theme.of(context).colorScheme.secondary
+                              : Theme.of(context).colorScheme.primary,
                           size: 16,
                         ),
                         const SizedBox(width: 8),
                         Text(
-                          "Fora da dieta",
+                          refeicao.naDieta ? "Dentro da dieta" : "Fora da dieta",
                           style: Theme.of(context).textTheme.bodyMedium?.copyWith(
                                 color: Theme.of(context).colorScheme.onSurface,
                               ),
@@ -111,18 +109,96 @@ class RefeicoesView extends GetView<RefeicoesController> {
                 const SizedBox(
                   height: 50,
                 ),
-                Padding(
-                  padding: const EdgeInsets.only(bottom: 18.0),
-                  child: CustomButton(
-                    text: 'Editar refeição',
-                    onPressed: () {
-                      //  controller.saveRefeicao();
-                    },
-                  ),
-                ),
               ],
             ),
           ),
+        ),
+      ),
+      floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
+      floatingActionButton: Padding(
+        padding: const EdgeInsets.all(16.0),
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            CustomButton(
+              icon: const Icon(Icons.edit),
+              text: 'Editar refeição',
+              onPressed: () {
+                Get.toNamed(Routes.REFEICAOEDIT, arguments: refeicao);
+              },
+            ),
+            const SizedBox(height: 10),
+            CustomButton(
+              backgroundColor: Theme.of(context).colorScheme.surface,
+              icon: Icon(
+                Icons.delete_forever,
+                color: Theme.of(context).colorScheme.onBackground,
+              ),
+              text: 'Excluir refeição',
+              textStyle: TextStyle(
+                fontSize: 18,
+                color: Theme.of(context).textTheme.titleLarge!.color,
+              ),
+              onPressed: () {
+                showDialog(
+                  context: context,
+                  builder: (BuildContext context) {
+                    return Dialog(
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(10),
+                      ),
+                      child: Material(
+                        color: Colors.white, // Define a cor de fundo como branca
+                        borderRadius: BorderRadius.circular(10),
+                        child: Padding(
+                          padding: const EdgeInsets.all(16.0),
+                          child: Column(
+                            mainAxisSize: MainAxisSize.min,
+                            children: <Widget>[
+                              const SizedBox(height: 16),
+                              Text(
+                                'Deseja realmente excluir o registro da refeição?',
+                                textAlign: TextAlign.center,
+                                style: Theme.of(context).textTheme.titleLarge!.copyWith(fontWeight: FontWeight.bold),
+                              ),
+                              const SizedBox(height: 24),
+                              Row(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  Expanded(
+                                    child: CustomButton(
+                                      backgroundColor: Theme.of(context).colorScheme.surface,
+                                      text: 'Cancelar',
+                                      onPressed: () {
+                                        Navigator.of(context).pop();
+                                      },
+                                      textStyle: TextStyle(
+                                        fontSize: 18,
+                                        color: Theme.of(context).textTheme.titleLarge!.color,
+                                      ),
+                                    ),
+                                  ),
+                                  const SizedBox(width: 16),
+                                  Expanded(
+                                    child: CustomButton(
+                                      text: 'Sim, excluir',
+                                      onPressed: () {
+                                        Navigator.of(context).pop();
+                                      },
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ],
+                          ),
+                        ),
+                      ),
+                    );
+                  },
+                );
+              },
+            ),
+          ],
         ),
       ),
     );

@@ -1,5 +1,6 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 
+import 'package:dieta_mobile/app/data/models/refeicao_model.dart';
 import 'package:dieta_mobile/app/data/shared/custom_button.dart';
 import 'package:dieta_mobile/app/data/shared/widgets/custom_text_field.dart';
 import 'package:dieta_mobile/app/modules/refeicoes/widgets/alimento_tile.dart';
@@ -13,6 +14,7 @@ class RefeicaoEditpage extends GetView<RefeicoesController> {
 
   @override
   Widget build(BuildContext context) {
+    final RefeicaoModel refeicao = Get.arguments as RefeicaoModel;
     return Scaffold(
       appBar: AppBar(
         // leading: ,
