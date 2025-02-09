@@ -19,51 +19,6 @@ class RefeicoesController extends GetxController {
   TextEditingController descricaoRefeicao = TextEditingController();
   RxBool isInDiet = false.obs;
 
-  @override
-  void onInit() {
-    /*  listAlimentos.addAll(
-      [
-        AlimentoModel(descricao: "aveia", calorias: 40, carboidratos: 50, gorduras: 10, proteinas: 5),
-        AlimentoModel(
-          descricao: "arroz",
-          calorias: 25,
-          carboidratos: 30,
-          gorduras: 5,
-          proteinas: 6,
-        ),
-        AlimentoModel(
-          descricao: "feijao",
-          calorias: 5,
-          carboidratos: 10,
-          gorduras: 10,
-          proteinas: 8,
-        ),
-        AlimentoModel(
-          descricao: "peito de frango",
-          calorias: 20,
-          carboidratos: 50,
-          gorduras: 10,
-          proteinas: 50,
-        ),
-        AlimentoModel(
-          descricao: "ovo",
-          calorias: 15,
-          carboidratos: 25,
-          gorduras: 15,
-          proteinas: 10,
-        )
-      ],
-    );
-    listRefeicoes.addAll([
-      RefeicaoModel(calorias: 50, alimentos: listAlimentos),
-      RefeicaoModel(calorias: 20),
-      RefeicaoModel(calorias: 15),
-      RefeicaoModel(calorias: 32)
-    ]); */
-
-    super.onInit();
-  }
-
   RxString base64Image = ''.obs;
 
   void enableEditPage() {

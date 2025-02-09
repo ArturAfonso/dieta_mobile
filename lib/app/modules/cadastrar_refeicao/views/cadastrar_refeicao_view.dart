@@ -1,10 +1,11 @@
+import 'package:dieta_mobile/app/data/shared/app_utils.dart';
+import 'package:dieta_mobile/app/routes/app_pages.dart';
 import 'package:flutter/material.dart';
 
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 import 'package:validatorless/validatorless.dart';
 
-import '../../../data/models/alimento_model.dart';
 import '../../../data/shared/custom_button.dart';
 import '../../../data/shared/widgets/custom_text_field.dart';
 import '../controllers/cadastrar_refeicao_controller.dart';
@@ -163,6 +164,7 @@ class CadastrarRefeicaoView extends GetView<CadastrarRefeicaoController> {
                                                   return Dismissible(
                                                     key: UniqueKey(),
                                                     confirmDismiss: (DismissDirection direction) async {
+                                                      FocusScope.of(context).unfocus();
                                                       return await showDialog(
                                                         context: context,
                                                         builder: (BuildContext context) {
@@ -212,7 +214,6 @@ class CadastrarRefeicaoView extends GetView<CadastrarRefeicaoController> {
                                                                           child: CustomButton(
                                                                             text: 'Sim, excluir',
                                                                             onPressed: () {
-                                                                              FocusNode().requestFocus();
                                                                               Navigator.of(context).pop(true);
                                                                             },
                                                                           ),
@@ -315,28 +316,28 @@ class CadastrarRefeicaoView extends GetView<CadastrarRefeicaoController> {
                                   style: Theme.of(context).textTheme.bodySmall!.copyWith(fontWeight: FontWeight.bold),
                                 ),
                                 const SizedBox(height: 5),
-                                Text(controller.refeicao.value.totalProteinas().toString()),
+                                Text(AppUtils.formatDouble(controller.refeicao.value.totalProteinas())),
                                 const SizedBox(height: 5),
                                 Text(
                                   'Calorias',
                                   style: Theme.of(context).textTheme.bodySmall!.copyWith(fontWeight: FontWeight.bold),
                                 ),
                                 const SizedBox(height: 5),
-                                Text(controller.refeicao.value.totalCalorias().toString()),
+                                Text(AppUtils.formatDouble(controller.refeicao.value.totalCalorias())),
                                 const SizedBox(height: 5),
                                 Text(
                                   'Gorduras',
                                   style: Theme.of(context).textTheme.bodySmall!.copyWith(fontWeight: FontWeight.bold),
                                 ),
                                 const SizedBox(height: 5),
-                                Text(controller.refeicao.value.totalGorduras().toString()),
+                                Text(AppUtils.formatDouble(controller.refeicao.value.totalGorduras())),
                                 const SizedBox(height: 5),
                                 Text(
                                   'Carboidratos',
                                   style: Theme.of(context).textTheme.bodySmall!.copyWith(fontWeight: FontWeight.bold),
                                 ),
                                 const SizedBox(height: 5),
-                                Text(controller.refeicao.value.totalCarboidratos().toString()),
+                                Text(AppUtils.formatDouble(controller.refeicao.value.totalCarboidratos())),
                                 const SizedBox(height: 5),
 
                                 /*  SizedBox(
@@ -484,15 +485,16 @@ class AddALimentoButton extends StatelessWidget {
       backgroundColor: Theme.of(context).colorScheme.secondary,
       text: "Adicionar alimento",
       onPressed: () {
-        controller.refeicao.value.alimentos!.add(
+        /*    controller.refeicao.value.alimentos!.add(
           AlimentoModel(
             descricao: 'Alimento',
-            proteinas: 10.0,
-            carboidratos: 20.0,
-            gorduras: 5.0,
+            proteinas: 100.5,
+            carboidratos: 22.4,
+            gorduras: 5.1,
             calorias: 200.0,
           ),
-        );
+        ); */
+        Get.toNamed(Routes.ALIMENTOS);
         controller.update();
       },
     );
