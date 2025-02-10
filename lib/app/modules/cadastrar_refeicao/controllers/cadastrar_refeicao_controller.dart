@@ -1,8 +1,10 @@
+import 'package:dieta_mobile/app/controllers/local_database_controller.dart';
 import 'package:dieta_mobile/app/data/models/refeicao_model.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 class CadastrarRefeicaoController extends GetxController {
+  LocalDatabaseController cLocalDatabase = Get.find();
   GlobalKey<FormState> formKey = GlobalKey<FormState>();
   TextEditingController tituloRefeicao = TextEditingController();
   TextEditingController descricaoRefeicao = TextEditingController();

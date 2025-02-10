@@ -1,3 +1,5 @@
+import 'package:flutter/services.dart';
+
 class AppUtils {
   static String formattedDate(DateTime dateTime) {
     return '${dateTime.day.toString().padLeft(2, '0')}.${dateTime.month.toString().padLeft(2, '0')}.${dateTime.year}';
@@ -12,6 +14,18 @@ class AppUtils {
   }
 }
 
+class CommaInputFormatter extends TextInputFormatter {
+  @override
+  TextEditingValue formatEditUpdate(TextEditingValue oldValue, TextEditingValue newValue) {
+    if (newValue.text.contains('.')) {
+      return oldValue;
+    }
+    if (newValue.text.split(',').length > 2) {
+      return oldValue;
+    }
+    return newValue;
+  }
+}
 
 
 /*  static String formattedDate(DateTime dateTime) {

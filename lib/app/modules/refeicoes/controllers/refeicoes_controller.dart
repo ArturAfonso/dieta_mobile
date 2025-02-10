@@ -2,16 +2,15 @@ import 'dart:convert';
 import 'dart:io';
 
 import 'package:device_info_plus/device_info_plus.dart';
-import 'package:dieta_mobile/app/data/models/alimento_model.dart';
-import 'package:dieta_mobile/app/data/models/refeicao_model.dart';
+import 'package:dieta_mobile/app/controllers/local_database_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:permission_handler/permission_handler.dart';
 
 class RefeicoesController extends GetxController {
-  RxList<RefeicaoModel> listRefeicoes = <RefeicaoModel>[].obs;
-  RxList<AlimentoModel> listAlimentos = <AlimentoModel>[].obs;
+  LocalDatabaseController cLocalDatabase = Get.find();
+
   RxBool editRefPage = false.obs;
 
   //editar refeição page

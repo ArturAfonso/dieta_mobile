@@ -42,12 +42,17 @@ class AlimentosView extends GetView<AlimentosController> {
         child: Padding(
           padding: const EdgeInsets.all(8.0),
           child: ListView.builder(
-            itemCount: controller.listAlimentos.length,
+            itemCount: controller.cLocalDatabase.listAlimentos.length,
             itemBuilder: (context, index) {
-              final alimento = controller.listAlimentos[index];
+              final alimento = controller.cLocalDatabase.listAlimentos[index];
               return ListTile(
+                onTap: () {
+                  Get.back(result: alimento);
+                },
                 title: Text(alimento.descricao!),
-                subtitle: Text(AppUtils.formatDouble(alimento.calorias!)),
+                subtitle: Text(
+                  AppUtils.formatDouble(alimento.calorias!),
+                ),
               );
             },
           ),

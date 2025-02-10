@@ -238,22 +238,22 @@ class MenuForm extends StatelessWidget {
             initState: (_) {},
             builder: (_) {
               return ListView.separated(
-                itemCount: controller.listAlimentos.length,
+                itemCount: controller.cLocalDatabase.listAlimentos.length,
                 itemBuilder: (BuildContext context, int index) {
-                  final item = controller.listAlimentos[index];
+                  final item = controller.cLocalDatabase.listAlimentos[index];
                   return Dismissible(
                     direction:
                         controller.editRefPage.value == true ? DismissDirection.horizontal : DismissDirection.none,
-                    key: ObjectKey(controller.listAlimentos[index]),
+                    key: ObjectKey(controller.cLocalDatabase.listAlimentos[index]),
                     onDismissed: (d) {
-                      controller.listAlimentos.removeAt(index);
+                      controller.cLocalDatabase.listAlimentos.removeAt(index);
                       controller.update();
                       //Text(' dismissed')
                       controller.showSnackbar(context);
                     },
                     child: AlimentoTile(
                       index: index,
-                      alimento: controller.listAlimentos[index],
+                      alimento: controller.cLocalDatabase.listAlimentos[index],
                     ),
                   );
                 },

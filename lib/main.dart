@@ -1,3 +1,4 @@
+import 'package:dieta_mobile/app/controllers/local_database_controller.dart';
 import 'package:dieta_mobile/app/data/theme/themes.dart';
 import 'package:dieta_mobile/app/modules/auth/controllers/auth_controller.dart';
 import 'package:dieta_mobile/app/modules/informacoes/controllers/saveinfo_controller.dart';
@@ -13,8 +14,10 @@ import 'app/routes/app_pages.dart';
 
 void main() async {
   await GetStorage.init('storage');
+  Get.put(LocalDatabaseController());
   Get.put(AuthController());
   AuthController cAuth = Get.find();
+
   Get.lazyPut(() => RefeicoesController());
   Get.lazyPut(() => InformacoesController());
   Get.lazyPut(() => SaveInfoUserController());

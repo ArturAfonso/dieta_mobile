@@ -97,9 +97,9 @@ class SelectUnitView extends GetView<SelectUnitController> {
         child: Padding(
           padding: const EdgeInsets.all(8.0),
           child: ListView.separated(
-            itemCount: controller.unidades.length,
+            itemCount: controller.cLocalDatabase.unidades.length,
             itemBuilder: (context, index) {
-              final unidade = controller.unidades[index];
+              final unidade = controller.cLocalDatabase.unidades[index];
               return ListTile(
                 title: Text(unidade.nome!),
                 subtitle: Text(unidade.sigla!),

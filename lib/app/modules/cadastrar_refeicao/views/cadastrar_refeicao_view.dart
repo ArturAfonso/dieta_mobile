@@ -276,7 +276,10 @@ class CadastrarRefeicaoView extends GetView<CadastrarRefeicaoController> {
                                                               ),
                                                               Expanded(
                                                                 child: Text(
-                                                                  'alimento ',
+                                                                  controller.refeicao.value.alimentos != null
+                                                                      ? controller
+                                                                          .refeicao.value.alimentos![index]!.descricao!
+                                                                      : '',
                                                                   style: Theme.of(context).textTheme.bodyMedium,
                                                                 ),
                                                               ),
@@ -484,17 +487,13 @@ class AddALimentoButton extends StatelessWidget {
       height: 35,
       backgroundColor: Theme.of(context).colorScheme.secondary,
       text: "Adicionar alimento",
-      onPressed: () {
-        /*    controller.refeicao.value.alimentos!.add(
-          AlimentoModel(
-            descricao: 'Alimento',
-            proteinas: 100.5,
-            carboidratos: 22.4,
-            gorduras: 5.1,
-            calorias: 200.0,
-          ),
-        ); */
-        Get.toNamed(Routes.ALIMENTOS);
+      onPressed: () async {
+        var result = await Get.toNamed(Routes.ALIMENTOS);
+        if (result != null) {
+          print(result);
+
+          controller.refeicao.value.alimentos!.add(result);
+        }
         controller.update();
       },
     );
