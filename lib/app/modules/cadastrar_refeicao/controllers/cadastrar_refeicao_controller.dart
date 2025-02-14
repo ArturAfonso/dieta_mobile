@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:dieta_mobile/app/controllers/local_database_controller.dart';
 import 'package:dieta_mobile/app/data/models/refeicao_model.dart';
 import 'package:flutter/material.dart';
@@ -21,14 +23,14 @@ class CadastrarRefeicaoController extends GetxController {
     titulo: '',
   ).obs;
 
-  void validadeRefeicao(BuildContext context) {
+  void validadeRefeicao(BuildContext context, LocalDatabaseController controller) {
     if (formKey.currentState!.validate()) {
       refeicao.update((val) {
         val!.titulo = tituloRefeicao.text;
         val.descricao = descricaoRefeicao.text;
-        /*   val. = dataRefeicaoDateIme;
-        val.horaRefeicao = horaRefeicaoDateTime;
-        val.naDieta = isInDiet.value; */
+        val.data = dataRefeicaoDateIme;
+        val.hora = horaRefeicaoDateTime;
+        val.naDieta = isInDiet.value;
       });
 
       if (refeicao.value.alimentos!.isEmpty) {
@@ -41,18 +43,26 @@ class CadastrarRefeicaoController extends GetxController {
           borderWidth: 1,
         );
         return;
-        /*  Get.showSnackbar(const GetSnackBar(
-        title: 'Refeicao vazia',
-        message: 'adcone pelo menos um alimento na refeiçao antes de salvar',
-        backgroundColor: Colors.red,
-        duration: Duration(seconds: 3),
-        snackPosition: SnackPosition.TOP,
-      )); */
       }
+      controller.listRefeicoes.add(refeicao.value);
+      cLocalDatabase.update();
+      controller.update();
+      refeicao.value = RefeicaoModel(
+        alimentos: [],
+        naDieta: false,
+        titulo: '',
+      );
+
+      Get.back();
+
+      print(jsonEncode(refeicao.value));
       print('proteinas ${refeicao.value.totalProteinas()}');
       print('calorias ${refeicao.value.totalCalorias()}');
       print('gorduras ${refeicao.value.totalGorduras()}');
       print('carboidratos ${refeicao.value.totalCarboidratos()}');
+      print('dia da semana ${refeicao.value.diaDaSemana}');
+      print('data ${refeicao.value.data}');
+      print('hora ${refeicao.value.hora}');
 
       //print(refeicao.value.);
     }

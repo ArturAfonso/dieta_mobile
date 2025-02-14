@@ -249,6 +249,7 @@ class AlimentosController extends GetxController {
                           text: 'Sim, salvar',
                           onPressed: () {
                             cLocalDatabase.listAlimentos.add(alimento);
+                            update();
                             // Get.offAllNamed(Routes.ALIMENTOS);
                             Get.back();
                             Get.back();

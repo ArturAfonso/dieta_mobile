@@ -15,7 +15,7 @@ class DiaDietaTile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     DateTime dateTime = refeicoes.first.data!;
-    String formattedDate = AppUtils.alternativeFormattedDate(dateTime);
+    String formattedDate = AppUtils.formattedDate(dateTime);
 
     return Column(
       mainAxisSize: MainAxisSize.min,

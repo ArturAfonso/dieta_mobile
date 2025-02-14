@@ -30,24 +30,26 @@ class RefeicaoModel {
   bool naDieta;
   String titulo;
   String? descricao;
-  // double? proteinas;
-  // double? carboidratos;
-  //double? gorduras;
-  // double? calorias;
+  double? proteinas;
+  double? carboidratos;
+  double? gorduras;
+  double? calorias;
   List<AlimentoModel?>? alimentos;
   DateTime? data;
+  DateTime? hora;
   String? diaDaSemana;
 
   RefeicaoModel({
     required this.naDieta,
     required this.titulo,
     this.descricao,
-    /*  this.proteinas,
+    this.proteinas,
     this.carboidratos,
     this.gorduras,
-    this.calorias, */
+    this.calorias,
     this.alimentos,
     this.data,
+    this.hora,
     this.diaDaSemana,
   });
 
@@ -55,10 +57,10 @@ class RefeicaoModel {
       : naDieta = json['naDieta'],
         titulo = json['titulo']?.toString() ?? '' {
     descricao = json['descricao']?.toString();
-    /*    proteinas = json['proteinas']?.toDouble();
+    proteinas = json['proteinas']?.toDouble();
     carboidratos = json['carboidratos']?.toDouble();
     gorduras = json['gorduras']?.toDouble();
-    calorias = json['calorias']?.toDouble(); */
+    calorias = json['calorias']?.toDouble();
     if (json['alimentos'] != null) {
       final v = json['alimentos'];
       final arr0 = <AlimentoModel>[];
@@ -68,18 +70,20 @@ class RefeicaoModel {
       alimentos = arr0;
     }
     data = json['data'] != null ? DateTime.parse(json['data']) : null;
+    data = json['hora'] != null ? DateTime.parse(json['hora']) : null;
     diaDaSemana = json['diaDaSemana']?.toString();
   }
 
   Map<String, dynamic> toJson() {
-    final data = <String, dynamic>{};
+    var data = <String, dynamic>{};
+    var hora = <String, dynamic>{};
     data['naDieta'] = naDieta;
     data['titulo'] = titulo;
     data['descricao'] = descricao;
-    /*  data['proteinas'] = proteinas;
+    data['proteinas'] = proteinas;
     data['carboidratos'] = carboidratos;
     data['gorduras'] = gorduras;
-    data['calorias'] = calorias; */
+    data['calorias'] = calorias;
     if (alimentos != null) {
       final v = alimentos;
       final arr0 = [];
@@ -90,6 +94,7 @@ class RefeicaoModel {
     }
     data['data'] = this.data?.toIso8601String();
     data['diaDaSemana'] = diaDaSemana;
+    data['hora'] = this.hora?.toIso8601String();
     return data;
   }
 

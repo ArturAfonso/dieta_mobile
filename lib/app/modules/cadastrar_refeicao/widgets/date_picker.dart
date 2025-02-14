@@ -1,5 +1,6 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 
 import '../controllers/cadastrar_refeicao_controller.dart';
@@ -31,13 +32,31 @@ class DateRangePickerState extends State<DateRangePicker> {
       initialDate: DateTime.now(),
       firstDate: DateTime(2000),
       lastDate: DateTime(2101),
+      locale: Get.locale,
+      builder: (BuildContext context, Widget? child) {
+        return Theme(
+          data: ThemeData.light().copyWith(
+            colorScheme: ColorScheme.light(
+              primary: Theme.of(context).colorScheme.secondary, // Altere esta cor para a cor desejada
+              onPrimary: Colors.white, // Cor do texto dos botões
+              //surface: Colors.blue, // Cor de fundo do cabeçalho
+              onSurface: Colors.black, // Cor do texto dos dias
+            ),
+            dialogBackgroundColor: Colors.white, // Cor de fundo do diálogo
+            dialogTheme: DialogTheme(
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(26.0), // Bordas arredondadas
+              ),
+            ),
+          ),
+          child: child!,
+        );
+      },
     );
     if (picked != null) {
-      if (isStartDate) {
-        widget.onDateChanged(picked);
-      } else {
-        widget.onHourChanged(picked);
-      }
+      widget.controller.dataRefeicaoDateIme = picked;
+      widget.controller.dataRefeicaoTxT.text = DateFormat('dd/MM/yyyy').format(picked);
+      widget.onDateChanged(picked);
     }
   }
 
@@ -45,6 +64,29 @@ class DateRangePickerState extends State<DateRangePicker> {
     final TimeOfDay? picked = await showTimePicker(
       context: context,
       initialTime: TimeOfDay.now(),
+      builder: (BuildContext context, Widget? child) {
+        return Localizations.override(
+          locale: Get.locale,
+          context: context,
+          child: Theme(
+            data: ThemeData.light().copyWith(
+              colorScheme: ColorScheme.light(
+                primary: Theme.of(context).colorScheme.secondary, // Altere esta cor para a cor desejada
+                onPrimary: Colors.white, // Cor do texto dos botões
+                surface: Colors.white, // Cor de fundo do cabeçalho
+                onSurface: Theme.of(context).colorScheme.secondary, // Cor do texto dos dias
+              ),
+              dialogBackgroundColor: Colors.white, // Cor de fundo do diálogo
+              dialogTheme: DialogTheme(
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(16.0), // Bordas arredondadas
+                ),
+              ),
+            ),
+            child: child!,
+          ),
+        );
+      },
     );
     if (picked != null) {
       final now = DateTime.now();
@@ -55,7 +97,8 @@ class DateRangePickerState extends State<DateRangePicker> {
         picked.hour,
         picked.minute,
       );
-
+      widget.controller.horaRefeicaoDateTime = selectedDateTime;
+      widget.controller.horaRefeicaoTxt.text = DateFormat('HH:mm').format(selectedDateTime);
       widget.onHourChanged(selectedDateTime);
     }
   }
@@ -81,7 +124,7 @@ class DateRangePickerState extends State<DateRangePicker> {
                       validator: widget.validator,
                       controller: widget.controller.dataRefeicaoTxT
                         ..text = widget.controller.dataRefeicaoDateIme != null
-                            ? hourFormat.format(widget.controller.dataRefeicaoDateIme!)
+                            ? dateFormat.format(widget.controller.dataRefeicaoDateIme!)
                             : '',
                       enabled: false,
                       decoration: InputDecoration(

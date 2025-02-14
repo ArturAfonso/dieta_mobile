@@ -1,3 +1,4 @@
+import 'package:dieta_mobile/app/controllers/local_database_controller.dart';
 import 'package:dieta_mobile/app/data/shared/app_utils.dart';
 import 'package:dieta_mobile/app/routes/app_pages.dart';
 import 'package:flutter/material.dart';
@@ -15,6 +16,7 @@ class CadastrarRefeicaoView extends GetView<CadastrarRefeicaoController> {
   const CadastrarRefeicaoView({Key? key}) : super(key: key);
   @override
   Widget build(BuildContext context) {
+    LocalDatabaseController cDatabaseLocal = Get.arguments;
     return Scaffold(
       appBar: AppBar(
         // leading: ,
@@ -44,7 +46,7 @@ class CadastrarRefeicaoView extends GetView<CadastrarRefeicaoController> {
             ),
           ),
           child: Padding(
-            padding: const EdgeInsets.only(top: 30.0, left: 16.0, right: 16.0, bottom: 16),
+            padding: const EdgeInsets.only(top: 16.0, left: 16.0, right: 16.0, bottom: 16),
             child: SingleChildScrollView(
               child: Column(
                 mainAxisSize: MainAxisSize.min,
@@ -118,13 +120,6 @@ class CadastrarRefeicaoView extends GetView<CadastrarRefeicaoController> {
                     style: Theme.of(context).textTheme.bodyLarge!.copyWith(fontWeight: FontWeight.bold),
                   ),
                   const SizedBox(height: 5),
-                  /*   Row(
-                    children: [
-                      Expanded(flex: 1, child: CustomTextField(txtController: controller.tituloRefeicao)),
-                      const SizedBox(width: 15),
-                      Expanded(flex: 1, child: CustomTextField(txtController: controller.tituloRefeicao)),
-                    ],
-                  ), */
                   Row(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
@@ -322,11 +317,11 @@ class CadastrarRefeicaoView extends GetView<CadastrarRefeicaoController> {
                                 Text(AppUtils.formatDouble(controller.refeicao.value.totalProteinas())),
                                 const SizedBox(height: 5),
                                 Text(
-                                  'Calorias',
+                                  'Carboidratos',
                                   style: Theme.of(context).textTheme.bodySmall!.copyWith(fontWeight: FontWeight.bold),
                                 ),
                                 const SizedBox(height: 5),
-                                Text(AppUtils.formatDouble(controller.refeicao.value.totalCalorias())),
+                                Text(AppUtils.formatDouble(controller.refeicao.value.totalCarboidratos())),
                                 const SizedBox(height: 5),
                                 Text(
                                   'Gorduras',
@@ -336,19 +331,17 @@ class CadastrarRefeicaoView extends GetView<CadastrarRefeicaoController> {
                                 Text(AppUtils.formatDouble(controller.refeicao.value.totalGorduras())),
                                 const SizedBox(height: 5),
                                 Text(
-                                  'Carboidratos',
-                                  style: Theme.of(context).textTheme.bodySmall!.copyWith(fontWeight: FontWeight.bold),
+                                  'Calorias',
+                                  style: Theme.of(context).textTheme.bodySmall!.copyWith(
+                                        fontWeight: FontWeight.bold,
+                                      ),
                                 ),
                                 const SizedBox(height: 5),
-                                Text(AppUtils.formatDouble(controller.refeicao.value.totalCarboidratos())),
+                                Text(
+                                  AppUtils.formatDouble(controller.refeicao.value.totalCalorias()),
+                                  style: TextStyle(color: Theme.of(context).colorScheme.error),
+                                ),
                                 const SizedBox(height: 5),
-
-                                /*  SizedBox(
-                                                    height: 50,
-                                                    child: CustomTextField(
-                                                      txtController: controller.descricaoRefeicao,
-                                                    ),
-                                                  ), */
                               ],
                             ),
                           );
@@ -356,7 +349,7 @@ class CadastrarRefeicaoView extends GetView<CadastrarRefeicaoController> {
                       ),
                     ],
                   ),
-                  const SizedBox(height: 15),
+                  const SizedBox(height: 5),
                   Text(
                     'Está dentro da dieta?',
                     style: Theme.of(context).textTheme.bodyLarge!.copyWith(fontWeight: FontWeight.bold),
@@ -450,7 +443,7 @@ class CadastrarRefeicaoView extends GetView<CadastrarRefeicaoController> {
                     ],
                   ),
                   const SizedBox(
-                    height: 50,
+                    height: 40,
                   ),
                   Padding(
                     padding: const EdgeInsets.only(bottom: 18.0),
@@ -459,7 +452,8 @@ class CadastrarRefeicaoView extends GetView<CadastrarRefeicaoController> {
                       onPressed: () {
                         // controller.formKey.currentState!.validate();
                         print(controller.refeicao.value.alimentos!.length);
-                        controller.validadeRefeicao(context);
+
+                        controller.validadeRefeicao(context, cDatabaseLocal);
                       },
                     ),
                   ),

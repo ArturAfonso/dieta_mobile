@@ -1,5 +1,6 @@
 // ignore_for_file: avoid_print
 
+import 'package:dieta_mobile/app/controllers/local_database_controller.dart';
 import 'package:dieta_mobile/app/data/shared/dieta_utils.dart';
 import 'package:dieta_mobile/app/modules/auth/controllers/auth_controller.dart';
 import 'package:dieta_mobile/app/modules/informacoes/controllers/saveinfo_controller.dart';
@@ -9,6 +10,7 @@ import 'package:get_storage/get_storage.dart';
 
 class HomeController extends GetxController {
   AuthController cAuth = Get.find();
+  LocalDatabaseController cLocalDatabase = Get.find();
 
   SaveInfoUserController cSaveInfo = Get.find();
   GetStorage storage = GetStorage('storage');

@@ -1,9 +1,9 @@
+import 'package:dieta_mobile/app/controllers/local_database_controller.dart';
 import 'package:flutter/material.dart';
 
 import 'package:get/get.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
 
-import '../../../data/models/alimento_model.dart';
 import '../../../data/models/refeicao_model.dart';
 import '../../../data/shared/app_utils.dart';
 import '../../../data/shared/custom_button.dart';
@@ -14,9 +14,9 @@ import '../widgets/custom_appbar_home.dart';
 import '../widgets/dia_dieta_tile.dart';
 
 class HomeView extends GetView<HomeController> {
-  HomeView({Key? key}) : super(key: key);
+  const HomeView({Key? key}) : super(key: key);
 
-  Map<String, List<RefeicaoModel>> _groupTransactionsByDate(List<RefeicaoModel> refeicoes) {
+  Map<String, List<RefeicaoModel>> _groupDaysByDate(List<RefeicaoModel> refeicoes) {
     refeicoes.sort((a, b) => b.data!.compareTo(a.data!));
 
     final Map<String, List<RefeicaoModel>> groupedRefeicoes = {};
@@ -32,7 +32,7 @@ class HomeView extends GetView<HomeController> {
     return groupedRefeicoes;
   }
 
-  final List<RefeicaoModel> refeicoes = [
+  /* final List<RefeicaoModel> refeicoes = [
     RefeicaoModel(
       titulo: 'Cafe da manha',
       data: DateTime(2023, 10, 1, 20, 30),
@@ -94,14 +94,14 @@ class HomeView extends GetView<HomeController> {
       ],
       naDieta: true,
     ),
-  ];
+  ]; */
   @override
   Widget build(BuildContext context) {
     final screenWidth = MediaQuery.of(context).size.width;
     final screenHeight = MediaQuery.of(context).size.height;
     //  List<List<RefeicaoModel>> refeicoesAgrupadas = agruparRefeicoesPorData(refeicoes);
-    final groupedTransactions = _groupTransactionsByDate(refeicoes);
-
+    final groupedDays = _groupDaysByDate(controller.cLocalDatabase.listRefeicoes);
+    controller.cLocalDatabase.update();
     return SafeArea(
       child: Scaffold(
         appBar: const PreferredSize(
@@ -178,21 +178,27 @@ class HomeView extends GetView<HomeController> {
               CustomButton(
                 text: '+ Nova refeição',
                 onPressed: () {
-                  Get.toNamed(Routes.CADASTRAR_REFEICAO);
+                  Get.toNamed(Routes.CADASTRAR_REFEICAO, arguments: controller.cLocalDatabase);
                 },
               ),
               const SizedBox(height: 10),
               Expanded(
-                child: ListView.builder(
-                  itemCount: groupedTransactions.length,
-                  itemBuilder: (context, index) {
-                    final date = groupedTransactions.keys.elementAt(index);
-                    final transactions = groupedTransactions[date]!;
-                    return DiaDietaTile(
-                      refeicoes: transactions,
-                    );
+                child: GetBuilder<LocalDatabaseController>(
+                  init: controller.cLocalDatabase,
+                  initState: (_) {},
+                  builder: (_) {
+                    return ListView.builder(
+                      itemCount: groupedDays.length,
+                      itemBuilder: (context, index) {
+                        final date = groupedDays.keys.elementAt(index);
+                        final extractedRefeicoes = groupedDays[date]!;
+                        return DiaDietaTile(
+                          refeicoes: extractedRefeicoes,
+                        );
 
-                    // return RefeicaoResumidaTile();
+                        // return RefeicaoResumidaTile();
+                      },
+                    );
                   },
                 ),
               ),

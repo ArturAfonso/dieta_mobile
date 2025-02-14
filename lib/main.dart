@@ -4,6 +4,7 @@ import 'package:dieta_mobile/app/modules/auth/controllers/auth_controller.dart';
 import 'package:dieta_mobile/app/modules/informacoes/controllers/saveinfo_controller.dart';
 import 'package:dieta_mobile/app/modules/metas/controllers/metas_controller.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';
 
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
@@ -30,7 +31,12 @@ void main() async {
       initialRoute: AppPages.INITIAL, //cAuth.loadUserLogado(),
       getPages: AppPages.routes,
       theme: lightTheme,
+      localizationsDelegates: GlobalMaterialLocalizations.delegates,
 
+      supportedLocales: const [
+        Locale('en', 'US'),
+        Locale('pt', 'BR'),
+      ],
       //darkTheme: darkTheme,
       //themeMode: getTheme(),
     ),
